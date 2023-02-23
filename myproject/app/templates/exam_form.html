@@ -1,0 +1,59 @@
+
+{% extends 'base1.html' %} 
+<style>
+    body {
+  background: linear-gradient(to right, #f09819, #edde5d)
+}
+h1 {
+  color: #fff;
+}
+.myModal{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background-color: aquamarine;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+</style>
+{% block content %}
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+    <div id="quiz" class="p-2">
+       <h1>{{data.subject_id.name}} Exam</h1>
+       <p>{{data.exam_id.duration}}</p>
+       <br>
+       <ol id="questions-list" class="list-group list-group-numbered">
+         
+        {% for  i in data_question %}
+        <input type="hidden" name="question_id" value="{{i.id}}">
+          <li class="list-group-item" id="Q2">
+            {{i.question}}
+             <ol type="a">
+                <li><input class="form-check-input me-1" type="radio" name="q2-input{{i.id}}" value="{{i.option_A}}"> {{i.option_A}}</li>
+                <li><input class="form-check-input me-1" type="radio" name="q2-input{{i.id}}" value=" {{i.option_B}}"> {{i.option_B}}</li>
+                <li><input class="form-check-input me-1" type="radio" name="q2-input{{i.id}}" value="{{i.option_C}}"> {{i.option_C}}</li>
+                <li><input class="form-check-input me-1" type="radio" name="q2-input{{i.id}}" value="{{i.option_D}}"> {{i.option_D}}</li>
+
+                <span style="    float: right;">Mark : {{i.mark}}</span>
+             </ol>
+          </li>
+
+          {% endfor %}
+       
+       </ol>
+       <button class="btn btn-outline-primary mt-3" type="submit">Submit Exam</button>
+    </div>
+    </form>
+
+    <div class="myModal">
+  
+    </div>
+ </div>
+
+
+{% endblock %}

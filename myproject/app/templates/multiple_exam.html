@@ -1,0 +1,55 @@
+
+{% extends 'base1.html' %} 
+
+{% block content %}
+
+
+<div class="">
+    <div class="content-wrapper">
+   
+      <div class="row">
+      
+ 
+        
+   
+     
+        {% for i in data %}
+    
+        <div class="col-md-4 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">{{i.subject_id.name}} Exam</h4>
+              <div class="media">
+                <i class="icon-globe icon-md text-info d-flex align-self-start mr-3"></i>
+                <div class="media-body">
+                    <a href="exam_form?id={{i.id}}">
+                        <p class="card-text" style="        color: #ecffee;
+                        font-weight: bold;
+                        font-size: 12px;
+                        background: #ab32e9;
+                        width: 26%;
+                        padding: 4px 10px;
+                        border-radius: 12px;">Attend Test</p>
+                    </a>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+     
+     
+  
+ 
+   
+    
+      </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+  
+    <!-- partial -->
+  </div>
+{% endblock %}
