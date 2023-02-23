@@ -67,3 +67,12 @@ class Multiple_exam_details(common_table):
     exam_tm = models.TimeField()
     total_que = models.IntegerField()
     question_type = models.CharField(max_length=25,null=True)
+
+
+class User_details(common_table):
+    user_auth = models.OneToOneField(User,related_name='User_details_auth_id',on_delete=models.CASCADE,null=True)
+    name = models.CharField(max_length=25,null=True)
+    contact_no = models.CharField(max_length=25,null=True)
+    email = models.CharField(max_length=25,null=True)
+    pic = models.FileField(upload_to='user_pic')
+    

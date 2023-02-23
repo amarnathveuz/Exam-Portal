@@ -227,10 +227,29 @@ def create_question(request):
 
 
 def user(request):
-    return render(request,'user.html')
+    data = User_details.objects.all()
+    context = {
+        'data':data
+    }
+    return render(request,'user.html',context)
 
 
 def create_user(request):
+    if request.method == "POST":
+        uname = request.POST.get("uname")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        pic = request.FILES['pic']
+        if User.objects.filter(username=uname).exists():
+            messages.warning(request,"Username already exists")
+            return redirect(request.META['HTTP_REFERER'])
+        else:
+            user = User.objects.create_user(uname, password = password)
+            user.save()
+            data_save = User_details.objects.create(user_auth=user,name=uname,contact_no=phone,email=email,pic=pic)
+            messages.success(request, str("success"))
+        return redirect(request.META['HTTP_REFERER'])
     return render(request,'create_user.html')
 
 

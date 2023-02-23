@@ -50,14 +50,19 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for  i in data %}
                   <tr>
-                    <td>1</td>
+                    <td>{{forloop.counter}}</td>
                     <td>
-                      <img class="img-sm rounded-circle" src="./static/images/faces/face1.jpg" alt="profile image"> Katie Holmes
+                      <img class="img-sm rounded-circle" src="./media/{{i.pic}}" alt="profile image"> {{i.name}}
                     </td>
+                  <td>
+                    {{i.contact_no}}
+                  </td><td>
+                    {{i.email}}
+                  </td>
                   
-                  
-                    <td>04 Jun 2019</td>
+                    <td>{{i.created_dt}}</td>
                    
                     <td>
                       <div class="badge badge-success p-2">Enable</div>
@@ -71,6 +76,7 @@
                             font-size: 16px;" class="fa fa-trash"></i></a>
                     </td>
                   </tr>
+                  {% endfor %}
               
                 </tbody>
               </table>

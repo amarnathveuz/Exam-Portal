@@ -9,27 +9,28 @@
         <h4 class="card-title">User creation</h4>
      <br>
 
-        <form class="forms-sample">
+        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
           <div class="form-group">
             <label for="exampleInputUsername1">User Name</label>
-            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Name">
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Name" required name="uname">
           </div>
           <div class="form-group">
             <label for="exampleInputUsername1">Contact No</label>
-            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Phone">
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Phone" required name="phone">
           </div>
        
           <div class="form-group">
-            <label for="exampleInputUsername1">Email</label>
-            <input type="email" class="form-control" id="exampleInputUsername1" placeholder="Email">
+            <label for="exampleInputUsername1">Email</label> 
+            <input type="email" class="form-control" id="exampleInputUsername1" placeholder="Email" required name="email">
           </div>
           <div class="form-group">
             <label for="exampleInputUsername1">Pssword</label>
-            <input type="password" class="form-control" id="exampleInputUsername1" placeholder="Password">
+            <input type="password" class="form-control" id="exampleInputUsername1" placeholder="Password" required name="password">
           </div>
           <div class="form-group">
             <label for="exampleInputUsername1">Profile Pic</label>
-            <input type="file" class="form-control" id="exampleInputUsername1" placeholder="Password">
+            <input type="file" class="form-control" id="exampleInputUsername1" placeholder="Password" name="pic" required>
           </div>
          
           <div class="form-check form-check-flat form-check-primary">
