@@ -21,7 +21,23 @@
                     <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Exam Title" required name="title">
                   </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="    float: right;">
+                <div class="col-md-12">
+                       <div class="form-group"> 
+                         <style>
+                            .uploadFile1 .inputfile::-webkit-file-upload-button {
+    display: none;
+ }
+                         </style>
+                              <div class="input-group uploadFile1" style="    width: 35%;
+                              float: right;">
+                                <input type="file" multiple class="inputfile form-control" name="attached_file" > 
+                                   <div class="input-group-append">    <span class="input-group-text"> <i class="fa fa-user"></i></span> 
+                                   </div> 
+                                   </div> 
+                                 </div> 
+                            </div>
+                
 
                 </div>
 
@@ -33,18 +49,27 @@
             </div>
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li  class="active" data-active="#home"><a data-toggle="tab" href="#home">Questions</a></li>
-                    <li  data-active="#menu1"><a data-toggle="tab" href="#menu1">Start Message</a></li>
-                    <li  data-active="#menu2"><a data-toggle="tab" href="#menu2">End Message</a></li>
-                    <li  data-active="#menu3"><a data-toggle="tab" href="#menu3">End Message</a></li>
+                    <li  class="active" data-active="#home"><a data-toggle="tab" href="#home" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Questions</a></li>
+                    <li  data-active="#menu1"><a data-toggle="tab" href="#menu1" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Start Message</a></li>
+                    <li  data-active="#menu2"><a data-toggle="tab" href="#menu2" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">End Message</a></li>
+                        <li  data-active="#menu2"><a data-toggle="tab" href="#menu3" style="    padding: 7px 12px;
+                            color: white;
+                            background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
+                   
                   </ul>
                 
-                  <div class="tab-content">
+                  <div class="tab-content mt-4">
                     <div id="home" class="tab-pane fade in active">
                       <h3>HOME</h3>
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                       <div class="btn-wrap">
-                            <a class="btn btn-default" data-toggle="tab" href="#menu1"  onclick="toggleTab(this);">Next</a>
+                           
                       </div>
                     </div>
                     <div id="menu1" class="tab-pane fade">
@@ -58,6 +83,11 @@
                        
                     </div>
                   
+                    <div id="menu3" class="tab-pane fade">
+                        <h3>Menu 3</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                         
+                      </div>
                   </div>
             </div>
           </div>
