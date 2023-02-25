@@ -155,7 +155,7 @@ class Main_Question_Bank(common_table):
     manadatory = models.BooleanField(default=False)
     comments = models.CharField(max_length=25,null=True)
     total_mark = models.IntegerField(null=True)
-    answer_id =  models.ManyToManyField('Question_Bank_multiple', blank=True,related_name="Answer_master_id")
+    answer_id =  models.ManyToManyField('Question_Bank_multiple_choice', blank=True,related_name="Answer_master_id")
 
 
 
@@ -165,7 +165,7 @@ class Main_Exam_section(common_table):
     section_type = models.CharField(max_length=20,choices=section_choices,null=True)
     Question_bank_id = models.ForeignKey(Main_Question_Bank,related_name='Main_Exam_Master_question_id',on_delete=models.CASCADE,null=True)
 
-class Question_Bank_multiple(common_table):
+class Question_Bank_multiple_choice(common_table):
     Question_id = models.ForeignKey(Main_Question_Bank,related_name ="Exam_section_exam_id",on_delete=models.CASCADE,null=True)
     choice = models.CharField(max_length=50,null=True)
     Imagefield = models.FileField(upload_to='Question_Bank_multiple',null=True)
