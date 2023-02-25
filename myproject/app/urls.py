@@ -32,6 +32,11 @@ urlpatterns = [
     path('student_dashboard',views.student_dashboard,name='student_dashboard'),
     path('multiple_exam',views.multiple_exam,name='multiple_exam'),
     path('exam_form',views.exam_form,name='exam_form'),
+
+    path('demo',views.demo,name='demo'),
+    path('demo_action',views.demo_action,name='demo_action'),
+    
+
     
 
     

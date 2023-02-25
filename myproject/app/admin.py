@@ -5,3 +5,5 @@ from django.contrib import admin
 from .models import  *
 
 admin.site.register(Class_master)
+admin.site.register(Main_Exam_section)
+admin.site.register(Question_Bank_multiple)

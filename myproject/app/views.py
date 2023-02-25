@@ -160,7 +160,14 @@ def create_exam(request):
         name = request.POST.get("name")
         class_name = request.POST.get("class_name")
         duration = request.POST.get("duration")
+        instruction = request.POST.getlist("instruction")
+        
+
+
+         
         data_save = Exam_master.objects.create(exam_name=name,class_id_id=class_name,duration=duration)
+        for  i in instruction:
+            data_ins = Exam_general_instruction.objects.create(exam_id_id=data_save.id,instruction=i)
         messages.success(request, str("success"))
         return redirect(request.META['HTTP_REFERER'])
     data_class  = Class_master.objects.all()
@@ -216,6 +223,9 @@ def create_question(request):
         answer = request.POST.get("answer")
         result = request.POST.get("option"+answer)
         mark = request.POST.get("mark")
+        demooo = request.POST.get("demooo")
+        print("demooo::::::::::::",str(demooo))
+        return
         data_save = Question_bank.objects.create(question=question,subject_id_id=subject,option_A=optiona,option_B=optionb,option_C=optionc,option_D=optiond,answer=result,mark=mark)
         messages.success(request, str("success"))
         return redirect(request.META['HTTP_REFERER'])
@@ -283,9 +293,11 @@ def student_dashboard(request):
 
 def multiple_exam(request):
     id  = request.GET.get("id")
+    data_general_instruction = Exam_general_instruction.objects.filter(exam_id_id=id)
     data = Multiple_exam_details.objects.filter(exam_id_id=id)
     context = {
-        'data':data
+        'data':data,
+        'data_general_instruction':data_general_instruction
     }
     return render(request,'multiple_exam.html',context)
 
@@ -319,3 +331,21 @@ def exam_form(request):
         'data_question':data_question
     }
     return render(request,'exam_form.html',context)
+
+
+def demo(request):
+    return render(request,'demo.html')
+import json
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def demo_action(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        print(data)
+        
+        for i in data:
+            print(i['name'])
+            print(i['age'])
+            print(type(i['age']))
+       

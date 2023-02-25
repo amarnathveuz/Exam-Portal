@@ -31,7 +31,19 @@
           </div>
          
           <div class="form-check form-check-flat form-check-primary">
-           
+
+            <p>General Instruction</p>
+         <div id="instruction_id">
+
+          <div class="form-group" >
+            <span id="add_general_instruction" style="cursor: pointer;"><i class="fa fa-plus"></i></span>
+            <br>
+            <br>
+            <label for="exampleInputUsername1">Instruction</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Carry All Necessary Material" required name="instruction">
+          </div>
+         
+         </div>
           </div>
           <button type="submit" class="btn btn-primary mr-2">Submit</button>
           <button class="btn btn-light">Cancel</button>
@@ -39,5 +51,18 @@
       </div>
     </div>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+  <script>
+
+    $("#add_general_instruction").click(function(){
+      $("#instruction_id").append(` <div class="form-group" >
+         
+           
+           
+          
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Carry All Necessary Material" required name="instruction">
+          </div>`)
+    })
+    </script>
 {% endblock %}
