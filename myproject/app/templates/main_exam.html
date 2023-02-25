@@ -1,0 +1,84 @@
+
+{% extends 'base.html' %} 
+
+{% block content %}
+
+
+
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card" style="    ">
+      <div class="card-body">
+        <h4 class="card-title"></h4>
+     <br>
+
+        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="exampleInputUsername1">Exam Title</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Exam Title" required name="title">
+                  </div>
+            </div>
+            <div class="col-md-6">
+
+                </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="exampleInputUsername1">Responsible</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Responsible" required name="title">
+                  </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li  class="active" data-active="#home"><a data-toggle="tab" href="#home">Questions</a></li>
+                    <li  data-active="#menu1"><a data-toggle="tab" href="#menu1">Start Message</a></li>
+                    <li  data-active="#menu2"><a data-toggle="tab" href="#menu2">End Message</a></li>
+                    <li  data-active="#menu3"><a data-toggle="tab" href="#menu3">End Message</a></li>
+                  </ul>
+                
+                  <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                      <h3>HOME</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                      <div class="btn-wrap">
+                            <a class="btn btn-default" data-toggle="tab" href="#menu1"  onclick="toggleTab(this);">Next</a>
+                      </div>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                      <h3>Menu 1</h3>
+                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                      <h3>Menu 2</h3>
+                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                       
+                    </div>
+                  
+                  </div>
+            </div>
+          </div>
+        
+
+        
+        
+      
+          <div class="form-check form-check-flat form-check-primary">
+           
+          </div>
+          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+{% endblock %}

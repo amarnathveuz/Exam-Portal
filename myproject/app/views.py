@@ -349,3 +349,6 @@ def demo_action(request):
             print(i['age'])
             print(type(i['age']))
        
+
+def main_exam(request):
+    return render(request,'main_exam.html')

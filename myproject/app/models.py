@@ -167,7 +167,7 @@ class Main_Exam_section(common_table):
 
 class Question_Bank_multiple(common_table):
     Question_id = models.ForeignKey(Main_Question_Bank,related_name ="Exam_section_exam_id",on_delete=models.CASCADE,null=True)
-    question_name = models.CharField(max_length=50,null=True)
+    choice = models.CharField(max_length=50,null=True)
     Imagefield = models.FileField(upload_to='Question_Bank_multiple',null=True)
     Mark = models.IntegerField(null=True)
     result_status = models.BooleanField(default=False)
