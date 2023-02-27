@@ -1,0 +1,150 @@
+<div class="modal fade bd-example-modal-lg-{{value1}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Question Management</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control modal_question{{value1}}" placeholder="question">
+            </div>
+            <div class="col-md-2">
+                <input type="file" class="form-control">
+            </div>
+            <div class="col-md-6 mt-4">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p style="    margin: 0 5px 0 0;
+                        color: #091124;
+                        font-size: 12px;
+                        line-height: 1.5;
+                        font-weight: 600;">Question Type</p>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="radio"> <span style="font-size: 12px;">Multiple choice: only one answer</span>
+                        <br>
+                        <input type="radio"> <span style="font-size: 12px;">Multiple choice: multiple answers allowed</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-4">
+                <ul class="nav nav-tabs">
+                   
+                    <li  data-active="#answer{{value1}}"><a data-toggle="tab" href="#answer{{value1}}" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Answers</a></li>
+                    <li  data-active="#Description{{value1}}"><a data-toggle="tab" href="#Description{{value1}}" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Description</a></li>
+                        <li  data-active="#menu111"><a data-toggle="tab" href="#menu111" style="    padding: 7px 12px;
+                            color: white;
+                            background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
+
+
+                   
+                  </ul>
+
+                  <div id="answer{{value1}}" class="tab-pane fade mt-4" style="border-style: solid;
+                  border-color: #7a7a79;
+                  padding: 12px 12px;
+                  border: 1px solid #0000002e;">
+                  
+
+
+
+                 <div class="row">
+                    <div class="col-md-2">
+                        <p style="font-size: 12px;">Answers</p>
+                    </div>
+                    <div class="col-md-8 card ">
+                        <br>
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th scope="col">Choices</th>
+                                <th scope="col">Is a correct answer</th>
+                                <th scope="col">Score for this choice</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody id="choice_add{{value1}}">
+                             
+
+
+
+
+                               
+                              </tbody>
+                              </table>
+                              <a class="mt-2" href="#" style="    padding: 3px 3px;
+                              font-size: 12px;
+                              background: #0c0c12;
+                              width: 7%;
+                              color: white;text-decoration: none;" onclick="choice_add_fun(`{{value1}}`)">Add a line</a>
+                              <br>
+                              
+                    </div>
+                 </div>
+
+                          
+                  </div>
+
+                  
+                  <div id="Description{{value1}}" class="tab-pane fade " style="border-style: solid;
+                  border-color: #7a7a79;
+                  padding: 12px 12px;
+                  border: 1px solid #0000002e;"><textarea class="form-control" placeholder="start message..."></textarea>
+                  
+
+
+                          
+                  </div>
+            </div>
+           </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary section_btn" onclick="modal_question_action(`{{value1}}`,`{{data_id}}`)" style="    background: black;
+            border: none;">Save </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function choice_add_fun(val1){
+
+   
+
+        $("#choice_add"+val1).append(`<tr>
+            
+            <td><input style="border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;" type="text" ></td>
+            <td><input  type="checkbox" ></td>
+            <td><input style="border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;" type="number" ></td>
+            </tr>`)
+       
+
+    }
+
+
+    function modal_question_action(val1,val2){
+       var question =  $(".modal_question"+val1).val();
+
+   
+      
+
+       $("#apppend_child"+val2).append(`
+
+      
+       
+       `)
+
+       $('.bd-example-modal-lg-'+val1).modal('hide');
+    }
+  </script>

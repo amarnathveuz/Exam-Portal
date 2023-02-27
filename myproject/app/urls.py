@@ -36,6 +36,7 @@ urlpatterns = [
     path('demo',views.demo,name='demo'),
     path('demo_action',views.demo_action,name='demo_action'),
     path('main_exam',views.main_exam,name='main_exam'),
+    path('open_section_based_question',views.open_section_based_question,name='open_section_based_question'),
     
     
 

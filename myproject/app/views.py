@@ -352,3 +352,11 @@ def demo_action(request):
 
 def main_exam(request):
     return render(request,'main_exam.html')
+
+
+def open_section_based_question(request):
+
+    modal_id = request.GET.get("modal_id")
+    data_id = request.GET.get("data_id")
+    value1 = str(data_id)+"-"+str(modal_id)
+    return render(request,'open_section_based_question.html',{'value1':value1,'data_id':data_id})
