@@ -41,15 +41,16 @@
                     <li  data-active="#Description{{value1}}"><a data-toggle="tab" href="#Description{{value1}}" style="    padding: 7px 12px;
                         color: white;
                         background: #181824;margin-left: 3px;text-decoration: none;">Description</a></li>
-                        <li  data-active="#menu111"><a data-toggle="tab" href="#menu111" style="    padding: 7px 12px;
+                        <li  data-active="#question_option{{value1}}"><a data-toggle="tab" href="#question_option{{value1}}" style="    padding: 7px 12px;
                             color: white;
                             background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
 
 
                    
                   </ul>
-
-                  <div id="answer{{value1}}" class="tab-pane fade mt-4 active show" style="border-style: solid;
+                  
+                  <div class="tab-content mt-4">
+                  <div id="answer{{value1}}" class="tab-pane fade active show card" style="border-style: solid;
                   border-color: #7a7a79;
                   padding: 12px 12px;
                   border: 1px solid #0000002e;">
@@ -104,10 +105,64 @@
 
                           
                   </div>
+                   
+                  <div id="question_option{{value1}}" class="tab-pane fade ">
+                  
+
+                  <div class="row mt-4 card" style="border-style: solid;
+                  border-color: #7a7a79;
+                  padding: 24px 12px;
+                  border: 1px solid #0000002e;">
+
+<div class="col-md-6">
+
+  <div class="row">
+      <div class="col-md-3 ">
+         <p style="    font-size: 13px;
+            color: black;
+font-weight: 600;">Mandatory Answer</p>
+      </div>
+      <div class="col-md-6">
+        <input type="checkbox">
+        </div>
+        <div class="col-md-12">
+
+        </div>
+ <div class="col-md-3 ">
+         <p style="    font-size: 13px;
+            color: black;
+font-weight: 600;">Image Field</p>
+      </div>
+      <div class="col-md-6">
+        <input type="checkbox">
+        </div>
+
+        <div class="col-md-12"></div>
+        <div class="col-md-3 ">
+          <p style="    font-size: 13px;
+             color: black;
+ font-weight: 600;">Comments</p>
+       </div>
+       <div class="col-md-6">
+        <input type="text" class="form-control">
+         </div>
+        
+  </div>
+</div>
+</div>
+
+                  
+
+
+                          
+                  </div>
+                  </div>
+                  
             </div>
            </div>
           </div>
 
+          <input type="hidden" name="modal_status" class="modal_status{{value1}}" value="{{status}}" >
           
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -143,8 +198,56 @@
 
     function modal_question_action(val1,val2){
    
+   
        var question =  $(".modal_question"+val1).val();
+      var modal_status = $(".modal_status"+val1).val();
+      
 
+
+      if(modal_status == "direct_question"){
+        if(question == ''){
+          
+        }
+        else{
+
+       
+          $("#append_table").append(`
+        <tr>
+                          <td class="sr-only"></td>
+                          <td> <a href="#"  style="    text-decoration: none;
+          color: black;
+          font-size: 12px;" data-toggle="modal" data-target=".bd-example-modal-lg-{{value1}}">
+          `+question+`
+          </a></td>
+                          <td><input type="hidden" value=`+i+` id="section_id`+i+`">
+                            <input type="hidden" name='section_line_count' value=`+i+`>
+                            <input type="hidden" value="`+question+`" name='section_line'>
+                            </td>
+                          <td>
+                            
+                            <i class="fa fa-remove" style="    font-size: 12px;
+    color: red;"></i>
+                            </td>
+                        </tr>
+                    
+        `)
+
+        i = i + 1
+        $('.bd-example-modal-lg-'+val1).modal('hide');
+    
+    $('.remove_onclick'+val1).hide()
+    $('.remove_onclick1'+val1).show()
+
+        }
+      }
+
+      else{
+
+        if(question == '')
+        {
+
+        }
+        else{
    
       
 
@@ -175,5 +278,7 @@
     
        $('.remove_onclick'+val1).hide()
        $('.remove_onclick1'+val1).show()
+  }
+  }
     }
   </script>

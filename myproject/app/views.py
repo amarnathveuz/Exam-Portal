@@ -372,5 +372,6 @@ def open_section_based_question(request):
     modal_id = request.GET.get("modal_id")
     data_id = request.GET.get("data_id")
     value1 = str(data_id)+"-"+str(modal_id)
+    status = request.GET.get("status",False)
     
-    return render(request,'open_section_based_question.html',{'value1':value1,'data_id':data_id})
+    return render(request,'open_section_based_question.html',{'value1':value1,'data_id':data_id,'status':status})
