@@ -1,7 +1,7 @@
 <div class="modal fade bd-example-modal-lg-{{value1}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-  
+  <input type="hidden" value="{{value1}}" name="question_model_name{{data_id}}">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Question Management</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -11,7 +11,7 @@
           <div class="modal-body">
            <div class="row">
             <div class="col-md-6">
-                <input type="text" class="form-control modal_question{{value1}}" placeholder="question">
+                <input type="text" class="form-control modal_question{{value1}}" placeholder="question" name="question_name{{data_id}}">
             </div>
             <div class="col-md-2">
                 <input type="file" class="form-control">
@@ -49,7 +49,7 @@
                    
                   </ul>
 
-                  <div id="answer{{value1}}" class="tab-pane fade mt-4" style="border-style: solid;
+                  <div id="answer{{value1}}" class="tab-pane fade mt-4 active show" style="border-style: solid;
                   border-color: #7a7a79;
                   padding: 12px 12px;
                   border: 1px solid #0000002e;">
@@ -97,7 +97,7 @@
                   
                   <div id="Description{{value1}}" class="tab-pane fade " style="border-style: solid;
                   border-color: #7a7a79;
-                  padding: 12px 12px;
+                
                   border: 1px solid #0000002e;"><textarea class="form-control" placeholder="start message..."></textarea>
                   
 
@@ -107,23 +107,31 @@
             </div>
            </div>
           </div>
+
+          
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary section_btn" onclick="modal_question_action(`{{value1}}`,`{{data_id}}`)" style="    background: black;
+            <button type="button" class="btn btn-primary section_btn remove_onclick{{value1}}" onclick="modal_question_action(`{{value1}}`,`{{data_id}}`)" style="    background: black;
             border: none;">Save </button>
+              <button type="button" class="btn btn-primary section_btn remove_onclick1{{value1}}"  style="    background: black;
+              border: none;display: none;" data-dismiss="modal">Save </button>
       </div>
     </div>
   </div>
 
   <script>
     function choice_add_fun(val1){
+     
 
    
 
         $("#choice_add"+val1).append(`<tr>
             
-            <td><input style="border: 1px solid #e8ecf1;
-    font-size: 0.8125rem;" type="text" ></td>
+            <td>
+            
+              
+              <input style="border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;" type="text" name="question_choice{{value1}}"></td>
             <td><input  type="checkbox" ></td>
             <td><input style="border: 1px solid #e8ecf1;
     font-size: 0.8125rem;" type="number" ></td>
@@ -134,17 +142,38 @@
 
 
     function modal_question_action(val1,val2){
+   
        var question =  $(".modal_question"+val1).val();
 
    
       
 
        $("#apppend_child"+val2).append(`
+      <tr style="    font-weight: 500;">
 
+        
+                          <td style="    font-weight: 500;"> 
+                            <a href="#"  style="    text-decoration: none;
+          color: black;
+          font-size: 12px;" data-toggle="modal" data-target=".bd-example-modal-lg-{{value1}}">
+          `+question+`
+          </a>
+                            
+                            
+                            
+                            </td>
+                          <td style="    font-weight: 500;">Multiple Question</td>
+                          <td style="    font-weight: 500;"><i class="fa fa-remove" style="    font-size: 12px;
+    color: red;"></i></td>
+
+    </tr>
       
        
        `)
 
        $('.bd-example-modal-lg-'+val1).modal('hide');
+    
+       $('.remove_onclick'+val1).hide()
+       $('.remove_onclick1'+val1).show()
     }
   </script>

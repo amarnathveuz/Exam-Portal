@@ -351,6 +351,19 @@ def demo_action(request):
        
 
 def main_exam(request):
+    if request.method == "POST":
+        exam_title = request.POST.get("exam_title")
+        section_line = request.POST.getlist("section_line")
+        section_line_count = request.POST.getlist("section_line_count")
+        responsible_person = request.POST.get("responsible_person")
+        main_zip = zip(section_line,section_line_count)
+        for section_title,section_count in main_zip:
+            question = request.POST.getlist("question_name"+str(section_count))
+            question_model_name = request.POST.getlist("question_model_name"+str(section_count))
+            question_zip = zip(question,question_model_name)
+            for  question,model_count in question_zip:
+                choice_data = request.POST.getlist("question_choice"+model_count)
+                
     return render(request,'main_exam.html')
 
 
@@ -359,4 +372,5 @@ def open_section_based_question(request):
     modal_id = request.GET.get("modal_id")
     data_id = request.GET.get("data_id")
     value1 = str(data_id)+"-"+str(modal_id)
+    
     return render(request,'open_section_based_question.html',{'value1':value1,'data_id':data_id})
