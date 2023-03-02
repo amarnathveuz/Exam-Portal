@@ -71,6 +71,8 @@
                             color: white;
                             background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
 
+                            
+
 <li  data-active="#menu2"><a data-toggle="tab" href="#menu4" style="    padding: 7px 12px;
     color: white;
     background: #181824;margin-left: 3px;text-decoration: none;">Initial Fields</a></li>
@@ -315,6 +317,43 @@ font-weight: 600;">Scoring</p>
                         </div>
                          
                       </div>
+
+                      <div id="menu4" class="tab-pane fade" style="border-style: solid;
+                      border-color: #7a7a79;
+                      padding: 12px 12px;
+                      border: 1px solid #0000002e;">
+                          
+
+                          <div class="row">
+
+                            <div class="col-md-12">
+                              <table class="table table-bordered">
+                                <thead>
+                                  <tr>
+                                    
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Answer</th>
+                                  
+                                  </tr>
+                                </thead>
+                                <tbody id="append_inital_field">
+                                
+
+                                  </tbody>
+                                  </table>
+                                  <br>
+
+                                  <a href="#" style="    background: #181824;
+                                  font-size: 12px;
+                                  padding: 3px 4px;
+                                  margin-top: 19px;
+                                  color: white;text-decoration: none;" class="add_exam_field">+ Add a line</a>
+                                  
+                            </div>
+                          </div>
+                         
+                      </div>
                   </div>
             </div>
           </div>
@@ -490,6 +529,42 @@ let i = 1
      })
 
     }
+    </script>
+
+    <script>
+
+      intital_value = 1
+      $(".add_exam_field").click(function(){
+       
+
+        $("#append_inital_field").append(
+          ` <tr>
+                                    
+                                    <th scope="row"><input type="text"  class="form-control" placeholder='Label title'></th>
+                                    <th scope="row">
+
+                                      <select style='border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;padding: 4px 11px;'>
+                                        <option value="selection">Selection</option>
+                                        <option value="Text Input">Text Input</option>
+                                      </select>
+                                    </th>
+                                    <th scope="row" id='multiple_choice`+intital_value+`'>
+                                      <a href="#" style="    font-size: 16px;
+                                      color: black;"  onclick="multiple_choice_add(`+intital_value+`)">+</a>
+                                    </th>
+                                  </tr>`
+        )
+        intital_value = intital_value + 1
+      })
+
+
+      function multiple_choice_add(val){
+        $("#multiple_choice"+val).append(
+          `<br><input class=" mt-2" type="text" style="border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;">`
+        )
+      }
     </script>
 
 {% endblock %}
