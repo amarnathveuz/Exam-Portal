@@ -1,0 +1,693 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<style>
+    .cust-logo {
+        width: 80px;
+        height: 80px;
+        float: left;
+        background-size: contain;
+        border: 1px solid #dee2e6;
+    }
+
+    .profile-pic {
+        width: 92px;
+        max-height: 200px;
+        display: inline-block;
+    }
+
+    .propic img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    img {
+        vertical-align: middle;
+        border-style: none;
+    }
+</style>
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card" style="    ">
+        <div class="card-body">
+            <h4 class="card-title"></h4>
+            <br>
+            <div class="col text-right">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="attend_exam?type={{data.id}}"><button type="button" class="btn" style="background-color: #7a7a79;" data-toggle="modal"
+                        data-target="#confim_modal" >Test Link</button></a>
+                </div>
+            </div>
+            <form class="forms-sample" action="update_exam_details" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <input type="hidden" name="updated_id" value="{{data.id}}">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">Exam Title</label>
+                            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="" required
+                                name="exam_title" value="{{data.Exam_title}}">
+                        </div>
+
+                    </div>
+                    <div class="col-md-6" style="    float: right;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <style>
+                                    .uploadFile1 .inputfile::-webkit-file-upload-button {
+                                        display: none;
+                                    }
+                                </style>
+                                <div class="input-group uploadFile1" style="    width: 35%;
+                              float: right;">
+
+                                    <input type="hidden" name="remove_status" value="0" id="remove_id">
+
+                                    <div class="propic"
+                                        {% if data.background_image == '' or data.background_image == None %} {% else %}
+                                        style="display: none" {% endif %}>
+                                        <div class="small-12 medium-2 large-2 columns">
+                                            <div class="circle">
+                                                <img class="profile-pic"
+                                                    src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
+                                                <div class="p-image">
+                                                    <i class="fa fa-camera upload-button" aria-hidden="true"></i>
+                                                    <input class="file-upload" name="exam_background_image" type="file"
+                                                        accept="image/*">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {% if data.background_image == '' or data.background_image == None %}
+
+                                    {% else %}
+
+                                    <div class="cust-logo"
+                                        style="background-image: url(./media/{{data.background_image}}); background-repeat: no-repeat;">
+
+                                        <span onclick="remove_icon()"><i style="font-size: 14px;
+                                        color: #eb3939;
+                                        font-weight: bold;" class="fa fa-remove"></i></span>
+
+                                        
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">Responsible</label>
+                            
+                            <select name="responsible_person" class="form-control">
+                                <option value="{{data.responsible_person.id}}" selected>{{data.responsible_person}}
+                                </option>
+                                {% for i in user %}
+                                {% if i.id == data.responsible_person.id %}
+                                {% else %}
+                                <option value="{{i.id}}">{{i.username}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs">
+                            <li class="active" data-active="#home"><a data-toggle="tab" href="#home" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Questions</a></li>
+                            <li data-active="#menu1"><a data-toggle="tab" href="#menu1" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Start Message</a></li>
+                            <li data-active="#menu2"><a data-toggle="tab" href="#menu2" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">End Message</a></li>
+                            <li data-active="#menu2"><a data-toggle="tab" href="#menu3" style="    padding: 7px 12px;
+                            color: white;
+                            background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
+                            
+                            <li data-active="#menu4"><a data-toggle="tab" href="#menu4" style="    padding: 7px 12px;
+                                color: white;
+                                background: #181824;margin-left: 3px;text-decoration: none;">IntailField</a></li>    
+                        </ul>
+
+                        <div class="tab-content mt-4">
+                            <div id="home" class="tab-pane fade in active show"
+                                style="border-style: solid;border-color: #7a7a79;padding: 24px 12px;border: 1px solid #0000002e;">
+
+                                <a onclick="direct_question_btn()" href="#"
+                                    style="    background: #181824d1;color: white;padding: 5px 7px; font-size: 11px;text-decoration: none;">
+                                    <i class="fa fa-plus"></i> Add a question</a>
+
+                                <a href="#"
+                                    style="    background: #181824d1;color: white;padding: 5px 7px;font-size: 11px;text-decoration: none;"
+                                    data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Add a
+                                    section</a>
+                                <br>
+                                <br>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="sr-only"> </th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="views_data">
+
+                                        {% for i in data_main %}                                       
+                                            <tr>
+                                                <td>{{forloop.counter}}.</td>
+                                                <td> <a href="#" onclick="Title_edit({{i.id}})">{{i.section_title}}</a></td>
+                                                <td><a href="#" onclick="" style="background: #181824d1;
+                                                    color: white;
+                                                    padding: 5px 7px;
+                                                    font-size: 11px;
+                                                    text-decoration: none;"><i class="fa fa-plus"></i> Add question</a></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th colspan="4" >
+                                                 <table class="table table-bordered" style="margin-left: 14px;">
+                                                    <tr>
+                                                     <td>Question</td>
+                                                     <td>Type</td>
+                                                     <td></td>
+                                            </tr>
+
+                                                    <tbody id="section_questions">
+
+                                                    {% for j in i.Section_Question_Mapping_id.all %}
+                                                    <tr>
+                                                        <td>{{j.Question_id.Question}}</td>
+                                                        <td>{% if j.Question_id.Question_type == "Radio" %} Multiple choice: only one answer  {% else %}  Multiple choice: multiple answers allowed {% endif %}</td>
+                                                        <td> <a href="#" onclick="section_Question_view({{j.Question_id.id}})" > <i style="color: #181824;
+                                                            font-weight: bold;
+                                                            font-size: 16px;" class="fa fa-edit"></i></a></td>
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                                </table>
+                                                </th>
+                                            </tr>
+
+                                        {% endfor %}
+
+                                    </tbody>
+
+                                    <tbody id="append_table">
+
+
+                                    </tbody>
+
+
+                                </table>
+                                <div class="btn-wrap">
+
+                                </div>
+                            </div>
+
+
+                            <div id="menu4" class="tab-pane fade" style="border-style: solid;
+                            border-color: #7a7a79;
+                            padding: 12px 12px;
+                            border: 1px solid #0000002e;">
+        
+                            </div>
+
+
+                            <div id="menu1" class="tab-pane fade" style="border-style: solid;
+                    border-color: #7a7a79;
+                    padding: 12px 12px;
+                    border: 1px solid #0000002e;">
+                                <textarea class="form-control" placeholder="start message..."
+                                    name="start_message">{{data.start_message}}</textarea>
+
+                            </div>
+
+                            <div id="menu2" class="tab-pane fade" style="border-style: solid;
+                    border-color: #7a7a79;
+                    padding: 12px 12px;
+                    border: 1px solid #0000002e;">
+                                <textarea class="form-control" placeholder="end message..."
+                                    name="end_message">{{data.end_message}}</textarea>
+                            </div>
+
+                            <div id="menu3" class="tab-pane fade">
+                                <div class="row mt-4"
+                                    style="border-style: solid; border-color: #7a7a79;padding: 24px 12px;border: 1px solid #0000002e;">
+
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p style="font-size: 13px; color: black;font-weight: 600;">Layout</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="radio" name="layout" {% if data.layout == "0" %} checked
+                                                    {% endif %} value="0"><span style="font-size: 12px;
+                                      padding: 5px 6px;">One page with all the questions</span>
+                                                <br>
+                                                <input type="radio" name="layout" {% if data.layout == "1" %} checked
+                                                    {% endif %} value="1"><span style="font-size: 12px;
+                                       padding: 5px 6px;">One page per section</span>
+                                                <br>
+                                                <input type="radio" name="layout" {% if data.layout == "2" %} checked
+                                                    {% endif %} value="2"><span style="font-size: 12px;
+                                        padding: 5px 6px;">One page per question</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p style=" font-size: 13px;
+                                                    color: black;
+                                                    font-weight: 600;">Access Mode</p>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <select class="form-control" name="access_mode">
+                                                    <option value="0" {% if data.access_mode == "0" %} selected
+                                                        {% endif %}>Anyone with the link</option>
+                                                    <option value="1" {% if data.access_mode == "1" %} selected
+                                                        {% endif %}>Invited people only</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p style="font-size:13px; color:black;font-weight:600;">Progression Mode
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="radio" name="progression_mode"
+                                                    {% if data.progression_mode == "Percentage" %} checked {% endif %}
+                                                    value="Percentage">
+                                                <span style="font-size: 12px;
+                                    padding: 5px 6px;">Percentage</span>
+                                                <br>
+                                                <input type="radio" name="progression_mode"
+                                                    {% if data.progression_mode == "Number" %} checked {% endif %}
+                                                    value="Number">
+                                                <span style="font-size: 12px; padding: 5px 6px;">Number</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p style="font-size: 13px;color: black;font-weight: 600;">Login Required
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="checkbox" name="login_required"
+                                                    {% if data.Login_required %} checked {% endif %} >
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <p style="font-size: 13px;color: black;font-weight: 600;">
+                                                            Attempts Limit</p>
+                                                    </div>
+
+
+                                                    <div class="col-md-1">
+                                                        {% if data.attempt_limit %}
+                                                        <input type="checkbox" id="Attempts" name="Attempts"
+                                                            onchange="valueChanged()" checked>
+                                                        {% else %}
+                                                        <input type="checkbox" id="Attempts" name="Attempts"
+                                                            onchange="valueChanged()">
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                    <div class="col-md-2 attempt_limit">
+                                                        <input style="border: 1px solid #e8ecf1;
+                                                                        font-size: 0.8125rem;" type="number"
+                                                            placeholder="attempts" id="attempts_limit"
+                                                            name="attempts_limit" value="{{data.attempt_limit}}">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <p style="font-size: 13px; color: black;font-weight: 600;">Exam Time
+                                                    Limit</p>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <input type="checkbox" id="time_limit" name="time_limit"
+                                                onclick="toggleTimeField()" {% if data.Exam_time_limit %} checked {% endif %} >
+
+                                                <div id="timefield" {% if data.Exam_time_limit %}  style="display: block;" {% endif %} >
+                                                    <input style="border: 1px solid #e8ecf1; font-size: 0.8125rem;"
+                                                    type="text" name="exam_time_limit" id="exam_time_limit"
+                                                    value="{{data.Exam_time_limit|time:'H:i:s'}}">
+                                                    <span style="font-size: 10px;">minutes</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                    </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p style="font-size: 13px; color: black;font-weight: 600;">Section</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="radio" name="section"
+                                                    {% if data.selection_mode == "All questions" %} checked {% endif %}
+                                                    value="All questions"><span
+                                                    style="font-size: 12px;padding: 5px 6px;">All questions</span>
+                                                <br>
+                                                <input type="radio" name="section"
+                                                    {% if data.selection_mode == "Randomized per section" %} checked
+                                                    {% endif %} value="Randomized per section"><span
+                                                    style="font-size:12px; padding:5px 6px;">Randomized per
+                                                    section</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6"> </div>
+
+                                    <div class="col-md-6 mt-4">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p style="font-size: 13px; color: black;font-weight: 600;">Scoring</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="radio" name="scoring_mode"
+                                                    {% if data.scoring_mode == "0" %} checked {% endif %} value="0">
+                                                <span style="font-size: 12px; padding: 5px 6px;">No scoring</span>
+                                                <br>
+                                                <input type="radio" name="scoring_mode"
+                                                    {% if data.scoring_mode == "1" %} checked {% endif %}
+                                                    value="1"><span style="font-size: 12px; padding: 5px 6px;">Scoring
+                                                    with answers at the end</span>
+                                                <br>
+                                                <input type="radio" name="scoring_mode"
+                                                    {% if data.scoring_mode == "2" %} checked {% endif %}
+                                                    value="2"><span style="font-size: 12px; padding: 5px 6px;">Scoring
+                                                    without answers at the end</span>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exam_title_edit_modal">
+
+                </div>
+
+                <div class="section_Question_view_modal">
+
+                </div>
+
+                <div class="direct_question_modal">
+
+                </div>
+      
+                <div class="form-check form-check-flat form-check-primary">
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Update</button>
+                <button class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Section Management</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control section_title" placeholder="title">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary section_btn" style="    background: black;
+          border: none;">Save </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    let i = 1
+    $(".section_btn").click(function () {
+        var section_string = $(".section_title").val();
+        if (section_string == '') {
+        } else {
+            $("#append_table").append(`
+        <tr>
+                          <td class="sr-only"></td>
+                          <td>` + section_string + `</td>
+                          <td><input type="hidden" value=` + i + ` id="section_id` + i + `">
+                            <input type="hidden" name='section_line_count' value=` + i + `>
+                            <input type="hidden" value="` + section_string + `" name='section_line'>
+                            </td>
+                          <td><a href="#" onclick="section_question(` + i + `)" style="    background: #181824d1;
+    color: white;
+    padding: 5px 7px;
+    font-size: 11px;
+    text-decoration: none;"><i class="fa fa-plus"></i> Add question</a></td>
+                        </tr>
+                        <tr>
+                         <th colspan="4" >
+                          <table class="table table-bordered" style="margin-left: 14px;">
+                            <tr>
+                              <td>Question</td>
+                              <td>Type</td>
+                              <td></td>
+                              </tr>
+                              <tbody id="apppend_child` + i + `">
+                                </tbody>
+                            </table>
+                          </th>
+                        </tr>
+        `)
+            i = i + 1
+            $(".section_title").val('');
+            $('#exampleModal').modal('hide');
+
+        }
+    })
+
+    function section_question(data_id) {
+        var modal_id = $("#section_id" + data_id).val();
+
+        $.ajax({
+            type: "GET",
+            url: "open_section_based_question",
+            data: {
+                modal_id: modal_id,
+                data_id: data_id
+            },
+            success: function (data) {
+                var modal_name = data_id + "-" + modal_id
+
+                $("#apppend_child" + data_id).append(data)
+                $('.bd-example-modal-lg-' + modal_name).modal('show');
+                let total = parseInt(modal_id) + 1
+
+                $("#section_id" + data_id).val(total);
+            }
+        })
+    }
+
+    function direct_question_btn() {
+
+        $.ajax({
+            type: "GET",
+            url: "open_section_based_question",
+            data: {
+                modal_id: i,
+                data_id: i,
+                status: 'direct_question'
+            },
+            success: function (data) {
+                var modal_name = i + "-" + i
+
+                $(".direct_question_modal").append(data)
+                $('.bd-example-modal-lg-' + modal_name).modal('show');
+
+            }
+        })
+
+    }
+</script>
+
+<script>
+function Title_edit(data_id) {
+    var data_id = data_id
+    $.ajax({
+            type: "GET",
+            url: "exam_title_edit_modal",
+            data: {
+                data_id: data_id
+            },
+            success: function (data) {
+                $(".exam_title_edit_modal").append(data);
+                $('.bd-example-modal-lg'+data_id).modal('show');
+            }
+        })
+    }
+</script>
+
+<script>
+function section_Question_view(data_id){
+    var data_id = data_id
+    $.ajax({
+            type: "GET",
+            url: "section_Question_view_modal",
+            data: {
+                data_id: data_id
+            },
+            success: function (data) {
+                $(".section_Question_view_modal").append(data);
+                $('.bd-example-modal-lg-'+data_id).modal('show');
+            }
+        })
+    }
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.profile-pic').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $(".file-upload").on('change', function () {
+            readURL(this);
+        });
+
+        $(".upload-button").on('click', function () {
+            $(".file-upload").click();
+        });
+    });
+</script>
+
+<script>
+    function remove_icon() {
+        $("#remove_id").val(1)
+        $(".cust-logo").hide()
+        $(".propic").show()
+    }
+</script>
+
+<script type="text/javascript">
+    
+    function valueChanged() {
+        if ($('#Attempts').is(":checked"))
+            $(".attempt_limit").show();
+        else
+            $(".attempt_limit").hide();
+        $('#attempts_limit').val(" ");
+    }
+
+
+</script>
+
+
+<script>
+
+    function toggleTimeField() {
+        var checkbox = document.getElementById("time_limit");
+        var timeFieldWrapper = document.getElementById("timefield");
+    
+        if (checkbox.checked) {
+            timeFieldWrapper.style.display = "block";
+        } else {
+            timeFieldWrapper.style.display = "none";
+        }
+    }
+    </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %}
+<script>
+    {% for message in messages %}
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: '{{message.tags}}',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+    toastMixin.fire({
+        animation: true,
+        title: '{{message}}'
+    }); 
+    {% endfor %}
+
+</script>
+
+{% endif %}
+
+{% endblock %}

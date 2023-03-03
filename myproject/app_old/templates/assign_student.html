@@ -1,0 +1,106 @@
+
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="row purchace-popup">
+   
+    </div>
+    <div class="row">
+    
+   
+    </div>
+    <!-- Quick Action Toolbar Starts-->
+
+    <!-- Quick Action Toolbar Ends-->
+
+    <div class="row">
+     
+    </div>
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'create_assign_student' %}">
+            <button style=" float: right;background: #181824;" type="button" class="btn btn-dark btn-rounded btn-icon">
+                <i class="fa fa-plus m-1"></i>
+              </button>
+          </a>
+            <br>
+            <div class="d-sm-flex align-items-center mb-4">
+              <h4 class="card-title mb-sm-0 mt-2">Assign Student Management</h4>
+            
+            </div>
+            <div class="table-responsive border rounded p-1">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="font-weight-bold"> S/No</th>
+                    <th class="font-weight-bold">Roll No</th>
+                    <th class="font-weight-bold">Student Name</th>
+                    <th class="font-weight-bold">Class Name</th>
+                    <th class="font-weight-bold">Created at</th>
+                
+                    <th class="font-weight-bold">Status</th>
+                    <th>
+
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in data %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                      {{i.roll_no}}
+                    </td>
+                    <td>
+                      <img class="img-sm rounded-circle" src="./media/{{i.pic}}" alt="profile image"> {{i.name}}
+                    </td>
+                  
+                  
+                   
+                    <td>
+                      {{i.class_id.name}}
+                    </td>
+                    <td>{{i.created_dt}}</td>
+                   
+                    <td>
+                      <div class="badge badge-success p-2">Enable</div>
+                    </td>
+                    <td>
+                        <a href=""> <i style="color: #181824;
+                            font-weight: bold;
+                            font-size: 16px;" class="fa fa-edit"></i></a>
+                        <a href="" class="m-2"> <i style="color: #181824;
+                            font-weight: bold;
+                            font-size: 16px;" class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+
+                  {% endfor %}
+              
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex mt-4 flex-wrap">
+              <p class="text-muted">Showing 1 to 10 of 57 entries</p>
+              <nav class="ml-auto">
+                <ul class="pagination separated pagination-info">
+                  <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                  <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                  <li class="page-item"><a href="#" class="page-link">2</a></li>
+                  <li class="page-item"><a href="#" class="page-link">3</a></li>
+                  <li class="page-item"><a href="#" class="page-link">4</a></li>
+                  <li class="page-item"><a href="#" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

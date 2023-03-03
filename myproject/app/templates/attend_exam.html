@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background-image:url('./media/{{data.background_image}}');background-repeat: no-repeat;background-size: cover;">
+
+    <div style="padding: 34px 20px 38px 100px;">
+        <h1>{{data.Exam_title}}</h1>
+        <h2>{{data.start_message}}</h2>
+        <div style="padding: 134px 0px 0px 0px">
+            <a href="wizard?type={{data.id}}"><button style="width: 140px;height: 60px;color: #fdecf2;background-color: #485e9d;border-radius: 10px;cursor: pointer;" type="button"><b>Start</b></button></a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -11,10 +11,15 @@
           <div class="modal-body">
            <div class="row">
             <div class="col-md-6">
-                <input type="text" class="form-control modal_question{{value1}}" placeholder="question" name="question_name{{data_id}}">
+                <input type="text" required class="form-control modal_question{{value1}}" placeholder="question" name="question_name{{data_id}}">
             </div>
-            <div class="col-md-2">
-                <input type="file" class="form-control">
+            <style>
+                .uploadFile1 .inputfile::-webkit-file-upload-button {
+                display: none;
+            }
+             </style>
+            <div class="col-md-2 input-group uploadFile1">
+                <input type="file" name="question_image{{data_id}}" class="inputfile form-control">
             </div>
             <div class="col-md-6 mt-4">
                 <div class="row">
@@ -26,9 +31,12 @@
                         font-weight: 600;">Question Type</p>
                     </div>
                     <div class="col-md-10">
-                        <input type="radio"> <span style="font-size: 12px;">Multiple choice: only one answer</span>
+                        <input type="radio"  class="question_type_radio{{value1}}" name="question_type{{data_id}}" value="Radio"> <span style="font-size: 12px;">Multiple choice: only one answer</span>
                         <br>
-                        <input type="radio"> <span style="font-size: 12px;">Multiple choice: multiple answers allowed</span>
+                        <input type="radio"  class="question_type_checkbox{{value1}}" name="question_type{{data_id}}" value="Checkbox"> <span style="font-size: 12px;">Multiple choice: multiple answers allowed</span>
+
+                        <div style="display:none;color:red;" class="alertshow">*please select question type</div>
+
                     </div>
                 </div>
             </div>
@@ -44,8 +52,8 @@
                         <li  data-active="#question_option{{value1}}"><a data-toggle="tab" href="#question_option{{value1}}" style="    padding: 7px 12px;
                             color: white;
                             background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
-
-
+  
+  
                    
                   </ul>
                   
@@ -55,225 +63,223 @@
                   padding: 12px 12px;
                   border: 1px solid #0000002e;">
                   
-
-
-
+  
+  
+  
                  <div class="row">
                     <div class="col-md-2">
                         <p style="font-size: 12px;">Answers</p>
                     </div>
                     <div class="col-md-8 card ">
                         <br>
-                        <table class="table table-bordered">
-                            <thead>
-                              <tr>
-                                <th scope="col">Choices</th>
-                                <th scope="col">Is a correct answer</th>
-                                <th scope="col">Score for this choice</th>
-                                <th scope="col"></th>
-                              </tr>
-                            </thead>
-                            <tbody id="choice_add{{value1}}">
-                             
-
-
-
-
-                               
-                              </tbody>
-                              </table>
-                              <a class="mt-2" href="#" style="    padding: 3px 3px;
-                              font-size: 12px;
-                              background: #0c0c12;
-                              width: 7%;
-                              color: white;text-decoration: none;" onclick="choice_add_fun(`{{value1}}`)">Add a line</a>
-                              <br>
+  
+                        <table id="datatable"  class="table dt-responsive table-bordered nowrap usertype-tbl mt-2" style="border: 1px solid black; border-collapse: collapse; border-spacing: 0; width: 100%;">
+  
+  
+                            <tr>
+                                <th class="th_btnpand">
+                                    <div class="appnd_user_btn append_btn" style="cursor: pointer;">+</div>
+                                </th>
+                                <th  class="th_choices">Choices</th>
+                                <th class="th_user_decrptn">Image</th>
+                                <th class="th_user_strtdate">Is Correct</th>
+                                <th class="th_user_enddate">Score</th>
+                            </tr>
+                            <tbody class="apenduser">
+                            <tr>
+                                <td class="th_btnpand">
+                                    <div class="appnd_user_minus_btn appnd_minus_btn" style="cursor: pointer;">-</div>
+                                </td>
+                                <td class="th_choices">
+                                  <input type="text" name="question_choice{{value1}}" class="form-control">
+                                </td>
+                                <td class="th_user_decrptn">
+                                    <input name="choice_image{{value1}}" type="file" class="form-control">
+                                </td>
+                                <td class="th_user_strtdate">
+                                    <div class="input-group date">
+                                        <select class="form-control" name="result_status{{value1}}" >
+                                            <option  value="True" >True</option>
+                                            <option  value="False" >False</option>
+                                          </select>
+                                    </div>
+                                </td>
+                                <td class="th_user_enddate">
+                                    <div class="input-group date">
+                                        <input  name="Mark{{value1}}" value="0" type="text" class="input form-control">
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                    </table>
                               
                     </div>
                  </div>
-
+  
                           
                   </div>
-
+  
                   
                   <div id="Description{{value1}}" class="tab-pane fade " style="border-style: solid;
                   border-color: #7a7a79;
                 
-                  border: 1px solid #0000002e;"><textarea class="form-control" placeholder="start message..."></textarea>
+                  border: 1px solid #0000002e;"><textarea class="form-control" name="qstn_descriptn{{data_id}}" placeholder="Description..."></textarea>
                   
-
-
+  
+  
                           
                   </div>
                    
                   <div id="question_option{{value1}}" class="tab-pane fade ">
                   
-
+  
                   <div class="row mt-4 card" style="border-style: solid;
                   border-color: #7a7a79;
                   padding: 24px 12px;
                   border: 1px solid #0000002e;">
-
-<div class="col-md-6">
-
-  <div class="row">
-      <div class="col-md-3 ">
-         <p style="    font-size: 13px;
-            color: black;
-font-weight: 600;">Mandatory Answer</p>
-      </div>
-      <div class="col-md-6">
-        <input type="checkbox">
-        </div>
-        <div class="col-md-12">
-
-        </div>
- <div class="col-md-3 ">
-         <p style="    font-size: 13px;
-            color: black;
-font-weight: 600;">Image Field</p>
-      </div>
-      <div class="col-md-6">
-        <input type="checkbox">
-        </div>
-
-        <div class="col-md-12"></div>
-        <div class="col-md-3 ">
-          <p style="    font-size: 13px;
-             color: black;
- font-weight: 600;">Comments</p>
-       </div>
-       <div class="col-md-6">
-        <input type="text" class="form-control">
-         </div>
-        
-  </div>
-</div>
-</div>
-
-                  
-
-
-                          
-                  </div>
-                  </div>
+  
+                <div class="col-md-6">
+                
+                <div class="row">
+                    <div class="col-md-3 ">
+                        <p style="    font-size: 13px;
+                            color: black;
+                font-weight: 600;">Mandatory Answer</p>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="checkbox" value="True" name="question_mandatory{{data_id}}">
+                        </div>
+                        <div class="col-md-12">
+                
+                        </div>
+                <div class="col-md-3 ">
+                        <p style="    font-size: 13px;
+                            color: black;
+                font-weight: 600;">Image Field</p>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="checkbox" name="choice_image_check{{data_id}}" value="True">
+                        </div>
+                
+                        <div class="col-md-12"></div>
+                        <div class="col-md-3 ">
+                        <p style="    font-size: 13px;
+                            color: black;
+                font-weight: 600;">Comments</p>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="question_comment{{data_id}}" class="form-control">
+                        </div>
+                        
+                </div>
+                </div>
+                </div>    
+                </div>
+                </div>
                   
             </div>
            </div>
           </div>
-
-          <input type="hidden" name="modal_status" class="modal_status{{value1}}" value="{{status}}" >
+  
+          <input type="hidden" name="" class="modal_status{{value1}}" value="{{status}}" >
           
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary section_btn remove_onclick{{value1}}" onclick="modal_question_action(`{{value1}}`,`{{data_id}}`)" style="    background: black;
+            <button type="button" class="btn btn-primary section_btn remove_onclick{{value1}}" onclick="modal_question_action(`{{value1}}`,`{{data_id}}`)" style="background: black;
             border: none;">Save </button>
-              <button type="button" class="btn btn-primary section_btn remove_onclick1{{value1}}"  style="    background: black;
+              <button type="button" class="btn btn-primary section_btn remove_onclick1{{value1}}"  style="background: black;
               border: none;display: none;" data-dismiss="modal">Save </button>
       </div>
     </div>
   </div>
-
+  
   <script>
-    function choice_add_fun(val1){
-     
-
-   
-
-        $("#choice_add"+val1).append(`<tr>
-            
-            <td>
-            
-              
-              <input style="border: 1px solid #e8ecf1;
-    font-size: 0.8125rem;" type="text" name="question_choice{{value1}}"></td>
-            <td><input  type="checkbox" ></td>
-            <td><input style="border: 1px solid #e8ecf1;
-    font-size: 0.8125rem;" type="number" ></td>
-            </tr>`)
-       
-
-    }
-
-
+  
+  
     function modal_question_action(val1,val2){
    
-   
        var question =  $(".modal_question"+val1).val();
-      var modal_status = $(".modal_status"+val1).val();
+        var modal_status = $(".modal_status"+val1).val();
+
+      if ($(".question_type_radio"+val1).is(":checked")){
+            question_type = "Multiple choice: only one answer"
+         }
+         else if($(".question_type_checkbox"+val1).is(":checked")){
+            question_type = "Multiple choice: multiple answers allowed"
+         }
+         else{
+
+            $(".alertshow").show()
+         }
       
-
-
+  
       if(modal_status == "direct_question"){
         if(question == ''){
           
         }
         else{
-
-       
+  
           $("#append_table").append(`
-        <tr>
-                          <td class="sr-only"></td>
-                          <td> <a href="#"  style="    text-decoration: none;
-          color: black;
-          font-size: 12px;" data-toggle="modal" data-target=".bd-example-modal-lg-{{value1}}">
-          `+question+`
-          </a></td>
-                          <td><input type="hidden" value=`+i+` id="section_id`+i+`">
-                            <input type="hidden" name='section_line_count' value=`+i+`>
-                            <input type="hidden" value="`+question+`" name='section_line'>
-                            </td>
-                          <td>
+            <tr>
+                <td class="sr-only"></td>
+                <td> <a href="#"  style="text-decoration: none;
+                color: black;
+                font-size: 12px;" data-toggle="modal" data-target=".bd-example-modal-lg-{{value1}}">
+                `+question+`
+                </a></td>
+
+                <td>
+                `+question_type+`
+                <input type="hidden" value=`+i+` id="section_id`+i+`">
+                <input type="hidden" name='section_line_count' value=`+i+`>
+                <input type="hidden" name="modal_status" value =`+modal_status+`>
+                <input type="hidden" value="`+question+`" name='section_line'>
+                </td>
+                <td>
                             
-                            <i class="fa fa-remove" style="    font-size: 12px;
-    color: red;"></i>
-                            </td>
-                        </tr>
+                <i class="fa fa-remove" style="    font-size: 12px;
+                color: red;"></i>
+                </td>
+            </tr>
                     
         `)
-
+  
         i = i + 1
         $('.bd-example-modal-lg-'+val1).modal('hide');
     
-    $('.remove_onclick'+val1).hide()
-    $('.remove_onclick1'+val1).show()
-
+        $('.remove_onclick'+val1).hide()
+        $('.remove_onclick1'+val1).show()
+  
         }
       }
-
+  
       else{
-
+  
         if(question == '')
         {
-
+  
         }
         else{
    
-      
-
        $("#apppend_child"+val2).append(`
-      <tr style="    font-weight: 500;">
-
-        
-                          <td style="    font-weight: 500;"> 
-                            <a href="#"  style="    text-decoration: none;
+        <tr style="    font-weight: 500;">
+        <td style="    font-weight: 500;"> 
+        <a href="#"  style="    text-decoration: none;
           color: black;
           font-size: 12px;" data-toggle="modal" data-target=".bd-example-modal-lg-{{value1}}">
           `+question+`
-          </a>
-                            
-                            
-                            
-                            </td>
-                          <td style="    font-weight: 500;">Multiple Question</td>
-                          <td style="    font-weight: 500;"><i class="fa fa-remove" style="    font-size: 12px;
-    color: red;"></i></td>
-
-    </tr>
+        </a>
+                           
+        </td>
+        <td style="font-weight: 500;">`+question_type+`</td>
+        <td style="font-weight: 500;"><i class="fa fa-remove" style="    font-size: 12px;
+        color: red;"></i></td>
+  
+        </tr>
       
        
        `)
-
+  
        $('.bd-example-modal-lg-'+val1).modal('hide');
     
        $('.remove_onclick'+val1).hide()
@@ -281,4 +287,48 @@ font-weight: 600;">Image Field</p>
   }
   }
     }
+  </script>
+  
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+    $(".appnd_user_btn").click(function() {
+    
+        $(".apenduser").append(` <tr>
+                                        <td class="th_btnpand">
+                                            <div class="appnd_user_minus_btn appnd_minus_btn" style="cursor: pointer;">-</div>
+                                        </td>
+                                        <td class="th_choices">
+                                        <input type="text" name="question_choice{{value1}}" class="form-control">
+                                        </td>
+                                            <td class="th_user_decrptn">
+                                        <input name="choice_image{{value1}}" type="file" class="form-control">
+                                        </td>
+                                       
+                                        <td class="th_user_strtdate">
+                                            <div class="input-group date">
+
+
+                                  <select class="form-control" name="result_status{{value1}}" >
+                                    <option  value="True" >True</option>
+                                    <option  value="False" >False</option>
+                                  </select>
+
+                                            </div>
+                                        </td>
+                                        <td class="th_user_enddate">
+                                            <div class="input-group date">
+                                                <input  name="Mark{{value1}}"  value="0" type="text" class="input form-control">
+                                            </div>
+                                        </td>
+                                      </tr>
+        `);
+        $(".appnd_user_minus_btn").click(function() {
+            $(this).parent().parent().remove();
+        });
+    });
+    });
+    $(".appnd_user_minus_btn").click(function() {
+            $(this).parent().parent().remove();
+        });
   </script>

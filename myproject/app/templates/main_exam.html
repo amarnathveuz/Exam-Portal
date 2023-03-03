@@ -4,25 +4,14 @@
 {% block content %}
 
 
-
-
 <div class="col-md-12 grid-margin stretch-card">
     <div class="card" style="    ">
       <div class="card-body">
         <h4 class="card-title"></h4>
      <br>
 
-        <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
+        <form class="forms-sample" action="exam_save_action" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
-        
-
-          
-
-
-
-
-
-
           <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -35,27 +24,33 @@
                        <div class="form-group"> 
                          <style>
                             .uploadFile1 .inputfile::-webkit-file-upload-button {
-    display: none;
- }
+                            display: none;
+                        }
                          </style>
                               <div class="input-group uploadFile1" style="    width: 35%;
                               float: right;">
-                                <input type="file" multiple class="inputfile form-control" name="attached_file"  > 
+                                <input type="file"  class="inputfile form-control" name="exam_background"  > 
                                    <div class="input-group-append">    <span class="input-group-text"> <i class="fa fa-user"></i></span> 
                                    </div> 
                                    </div> 
                                  </div> 
                             </div>
-                
-
                 </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="exampleInputUsername1">Responsible</label>
-                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Responsible" required name="responsible_person">
-                  </div>
-            </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="">Responsible</label>
+                      <select required name="responsible_name" class="form-control">
+                        <option value="">Select User</option>
+                        {% for i in user_details %}
+            
+                        <option value="{{i.id}}">{{i.username}}</option>
+            
+                        {% endfor %}
+                       </select>
+                    </div>
+              </div>
+
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li  class="active" data-active="#home"><a data-toggle="tab" href="#home" style="    padding: 7px 12px;
@@ -71,11 +66,9 @@
                             color: white;
                             background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
 
-                            
-
-<li  data-active="#menu2"><a data-toggle="tab" href="#menu4" style="    padding: 7px 12px;
-    color: white;
-    background: #181824;margin-left: 3px;text-decoration: none;">Initial Fields</a></li>
+                        <li  data-active="#menu2"><a data-toggle="tab" href="#menu4" style="    padding: 7px 12px;
+                            color: white;
+                            background: #181824;margin-left: 3px;text-decoration: none;">Initial Fields</a></li>
                    
                   </ul>
                 
@@ -85,14 +78,14 @@
                     padding: 24px 12px;
                     border: 1px solid #0000002e;">
                      
-                     <a onclick="direct_question_btn()" href="#" style="    background: #181824d1;
+                     <a onclick="direct_question_btn()" href="#" style="background: #181824d1;
                      color: white;
                      padding: 5px 7px;
                      font-size: 11px;text-decoration: none;"><i class="fa fa-plus"></i> Add a question</a>
-                                          <a href="#" style="    background: #181824d1;
-                                          color: white;
-                                          padding: 5px 7px;
-                                          font-size: 11px;text-decoration: none;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Add a section</a>
+                    <a href="#" style="background: #181824d1;
+                    color: white;
+                    padding: 5px 7px;
+                    font-size: 11px;text-decoration: none;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Add a section</a>
                      <br>
                      <br>
                      <table class="table table-bordered">
@@ -119,14 +112,14 @@
                     border-color: #7a7a79;
                     padding: 12px 12px;
                     border: 1px solid #0000002e;">
-                     <textarea class="form-control" placeholder="start message..."></textarea>
+                     <textarea class="form-control" name="start_message" placeholder="start message..."></textarea>
                             
                     </div>
                     <div id="menu2" class="tab-pane fade" style="border-style: solid;
                     border-color: #7a7a79;
                     padding: 12px 12px;
                     border: 1px solid #0000002e;">
-                        <textarea class="form-control" placeholder="end message..."></textarea>
+                        <textarea class="form-control" name="end_message" placeholder="end message..."></textarea>
                        
                     </div>
                   
@@ -144,16 +137,16 @@
                                     <div class="col-md-2">
                                        <p style="    font-size: 13px;
                                           color: black;
-    font-weight: 600;">Layout</p>
+                                          font-weight: 600;">Layout</p>
                                     </div>
                                     <div class="col-md-6">
-                                      <input type="radio"><span style="    font-size: 12px;
+                                      <input value="0" checked name="layout" type="radio"><span style="    font-size: 12px;
                                       padding: 5px 6px;">One page with all the questions</span>
                                       <br>
-                                       <input type="radio"><span style="    font-size: 12px;
+                                       <input value="1" name="layout" type="radio"><span style="    font-size: 12px;
                                        padding: 5px 6px;">One page per section</span>
                                         <br>
-                                        <input type="radio"><span style="    font-size: 12px;
+                                        <input value="2" name="layout" type="radio"><span style="    font-size: 12px;
                                         padding: 5px 6px;">One page per question</span>
                                       </div>
 
@@ -165,14 +158,14 @@
                                 <div class="col-md-2">
                                    <p style="    font-size: 13px;
                                       color: black;
-font-weight: 600;">Access Mode</p>
+                                      font-weight: 600;">Access Mode</p>
                                 </div>
                                 <div class="col-md-6">
                                  
 
-                                  <select class="form-control">
-                                    <option>Anyone with the link</option>
-                                    <option>Invited people only</option>
+                                  <select class="form-control" name="access_mode">
+                                    <option value="0">Anyone with the link</option>
+                                    <option value="1">Invited people only</option>
                                   </select>
                                   </div>
 
@@ -184,13 +177,13 @@ font-weight: 600;">Access Mode</p>
                                   <div class="col-md-2">
                                      <p style="    font-size: 13px;
                                         color: black;
-  font-weight: 600;">Progression Mode</p>
+                                        font-weight: 600;">Progression Mode</p>
                                   </div>
                                   <div class="col-md-6">
-                                    <input type="radio"><span style="    font-size: 12px;
+                                    <input name="progression" checked value="Percentage" type="radio"><span style="    font-size: 12px;
                                     padding: 5px 6px;">Percentage</span>
                                     <br>
-                                     <input type="radio"><span style="    font-size: 12px;
+                                     <input name="progression" value="Number" type="radio"><span style="    font-size: 12px;
                                      padding: 5px 6px;">Number</span>
                                     
                                      
@@ -203,35 +196,36 @@ font-weight: 600;">Access Mode</p>
 
                             <div class="row">
                               <div class="col-md-2">
-                                 <p style="    font-size: 13px;
+                                 <p style="font-size: 13px;
                                     color: black;
-font-weight: 600;">Login Required</p>
+                                    font-weight: 600;">Login Required</p>
                               </div>
                               <div class="col-md-6">
-                               
 
-<input type="checkbox">
+                              <input type="checkbox" id="login_required" value="True" name="login_required">
                                 </div>
-                                <div class="col-md-12">
+
+
+                                <div class="col-md-12" id="attemp_lim" style="display:none;">
 
                                   <div class="row">
 
                                     <div class="col-md-2">
                                       <p style="    font-size: 13px;
                                       color: black;
-  font-weight: 600;">Attempts Limit</p>
+                                      font-weight: 600;">Attempts Limit</p>
 
                                     </div>
                                     <div class="col-md-1">
                                
 
                                       <input type="checkbox">
-                                                                      </div>
-                                                                      <div class="col-md-2">
-                                                                        <input style="border: 1px solid #e8ecf1;
-                                                                        font-size: 0.8125rem;" type="number" placeholder="attempts">
-                                                                     
-                                                                      </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                          <input style="border: 1px solid #e8ecf1;
+                                          font-size: 0.8125rem;" value="1" name="attempt_limit" type="number" placeholder="attempts">
+                                        
+                                        </div>
                                   </div>
                                 </div>
 
@@ -244,16 +238,16 @@ font-weight: 600;">Login Required</p>
                                 <div class="col-md-2">
                                    <p style="    font-size: 13px;
                                       color: black;
-font-weight: 600;">Survey Time Limit</p>
+                                      font-weight: 600;">Exam Time Limit</p>
                                 </div>
-                                <div class="col-md-6">
-                                  <input type="checkbox"> <input style="border: 1px solid #e8ecf1;
+                                <div class="col-md-6"  >
+                                  <input type="checkbox" name="exam_check" value="True" id="exam_check"> 
+                                  <div id="show_timelimit" style="display: none;">
+                                  <input  style="border: 1px solid #e8ecf1;
                                  
-                                  font-size: 0.8125rem;" type="text" placeholder="10:00"> <span style="font-size: 10px;">minutes</span>
-                                 
-                                  
-                                   
+                                  font-size: 0.8125rem;" value="10:00" type="text" name="exam_time_limit" placeholder="10:00"> <span style="font-size: 10px;">minutes</span>
                                   </div>
+                                </div>
 
                             </div>
                         </div>
@@ -273,10 +267,10 @@ font-weight: 600;">Selection</p>
                               </div>
                               <div class="col-md-6">
                                 
-                                <input type="radio"><span style="    font-size: 12px;
+                                <input type="radio" checked value="All questions" name="selection_mode"><span style="    font-size: 12px;
                                 padding: 5px 6px;">All questions</span>
                                 <br>
-                                 <input type="radio"><span style="    font-size: 12px;
+                                 <input type="radio" value="Randomized per section" name="selection_mode"><span style="    font-size: 12px;
                                  padding: 5px 6px;">Randomized per section</span>
                                 
                                 
@@ -298,13 +292,13 @@ font-weight: 600;">Scoring</p>
                             </div>
                             <div class="col-md-6">
                               
-                              <input type="radio"><span style="    font-size: 12px;
+                              <input type="radio" checked value="0" name="Scoring"><span style="font-size: 12px;
                               padding: 5px 6px;">No scoring</span>
                               <br>
-                               <input type="radio"><span style="    font-size: 12px;
+                               <input type="radio" value="1" name="Scoring"><span style="font-size: 12px;
                                padding: 5px 6px;">Scoring with answers at the end</span>
                                <br>
-                               <input type="radio"><span style="    font-size: 12px;
+                               <input type="radio" value="2" name="Scoring"><span style="font-size: 12px;
                                padding: 5px 6px;">Scoring without answers at the end</span>
                               
                                <br>
@@ -321,39 +315,11 @@ font-weight: 600;">Scoring</p>
                       <div id="menu4" class="tab-pane fade" style="border-style: solid;
                       border-color: #7a7a79;
                       padding: 12px 12px;
-                      border: 1px solid #0000002e;">
-                          
-
-                          <div class="row">
-
-                            <div class="col-md-12">
-                              <table class="table table-bordered">
-                                <thead>
-                                  <tr>
-                                    
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Answer</th>
-                                  
-                                  </tr>
-                                </thead>
-                                <tbody id="append_inital_field">
-                                
-
-                                  </tbody>
-                                  </table>
-                                  <br>
-
-                                  <a href="#" style="    background: #181824;
+                      border: 1px solid #0000002e;">                          <div class="row">                            <div class="col-md-12">                              <table class="table table-bordered">                                <thead>                                  <tr>                                    <th scope="col">Title</th>                                    <th scope="col">Type</th>                                    <th scope="col">Answer</th>                                  </tr>                                </thead>                                <tbody id="append_inital_field">                                  </tbody>                                  </table>                                  <br>                                  <a href="#" style="    background: #181824;
                                   font-size: 12px;
                                   padding: 3px 4px;
                                   margin-top: 19px;
-                                  color: white;text-decoration: none;" class="add_exam_field">+ Add a line</a>
-                                  
-                            </div>
-                          </div>
-                         
-                      </div>
+                                  color: white;text-decoration: none;" class="add_exam_field">+ Add a line</a>                            </div>                          </div>                      </div>
                   </div>
             </div>
           </div>
@@ -402,23 +368,13 @@ font-weight: 600;">Scoring</p>
   <script>
 
 
-let i = 1
+    let i = 1
     $(".section_btn").click(function(){
-
-
       var section_string = $(".section_title").val();
-
-    
       if(section_string == ''){
 
       }
       else{
-
-      
-      
-      
-       
-
 
         $("#append_table").append(`
         <tr>
@@ -426,6 +382,7 @@ let i = 1
                           <td>`+section_string+`</td>
                           <td><input type="hidden" value=`+i+` id="section_id`+i+`">
                             <input type="hidden" name='section_line_count' value=`+i+`>
+                            <input type="hidden" name="modal_status" value = "False">
                             <input type="hidden" value="`+section_string+`" name='section_line'>
                             </td>
                           <td><a href="#" onclick="section_question(`+i+`)" style="    background: #181824d1;
@@ -456,21 +413,12 @@ let i = 1
         i = i + 1
          $(".section_title").val('');
          $('#exampleModal').modal('hide');
-
-      
       }
     })
 
-
-
-
     function section_question(data_id){
 
-      
-   
       var modal_id = $("#section_id"+data_id).val();
-     
-
 
       $.ajax(
     {
@@ -482,9 +430,8 @@ let i = 1
         },
         success: function( data ) 
         {
-           var modal_name = data_id+"-"+modal_id
-          
-         
+          var modal_name = data_id+"-"+modal_id
+
           $("#apppend_child"+data_id).append(data)
           $('.bd-example-modal-lg-'+modal_name).modal('show');
           let total = parseInt(modal_id) + 1
@@ -500,71 +447,94 @@ let i = 1
 
 
     function direct_question_btn(){
-  
 
-     
-     $.ajax(
+      var modal_name1 = i+"-"+i
+
+           var isClassExist = document.getElementsByClassName('bd-example-modal-lg-'+modal_name1);
+
+            if (isClassExist.length > 0) {
+              
+          $('.bd-example-modal-lg-'+modal_name1).modal('show');
+
+            
+          }
+          else{
+
+    $.ajax(
     {
         type:"GET",
         url: "open_section_based_question",
         data:{
-                 modal_id: i,
-                 data_id:i,
-                 status:'direct_question'
+
+              modal_id: i,
+              data_id:i,
+              status:'direct_question'
         },
         success: function( data ) 
         {
-           var modal_name = i+"-"+i
-
-          
-          
-         
+          var modal_name = i+"-"+i
+           
           $(".direct_question_modal").append(data)
           $('.bd-example-modal-lg-'+modal_name).modal('show');
-        
-        
-         
-    
         }
      })
 
     }
+
+    }
+  
     </script>
 
     <script>
+       $("#login_required").click(function() {
 
-      intital_value = 1
-      $(".add_exam_field").click(function(){
-       
+      login_required =  $("#login_required").is(":checked")
+      if (login_required == true){
 
-        $("#append_inital_field").append(
-          ` <tr>
-                                    
-                                    <th scope="row"><input type="text"  class="form-control" placeholder='Label title'></th>
-                                    <th scope="row">
+        $("#attemp_lim").show()
 
-                                      <select style='border: 1px solid #e8ecf1;
-    font-size: 0.8125rem;padding: 4px 11px;'>
-                                        <option value="selection">Selection</option>
-                                        <option value="Text Input">Text Input</option>
-                                      </select>
-                                    </th>
-                                    <th scope="row" id='multiple_choice`+intital_value+`'>
-                                      <a href="#" style="    font-size: 16px;
-                                      color: black;"  onclick="multiple_choice_add(`+intital_value+`)">+</a>
-                                    </th>
-                                  </tr>`
-        )
-        intital_value = intital_value + 1
-      })
-
-
-      function multiple_choice_add(val){
-        $("#multiple_choice"+val).append(
-          `<br><input class=" mt-2" type="text" style="border: 1px solid #e8ecf1;
-    font-size: 0.8125rem;">`
-        )
       }
-    </script>
+      else{
+        $("#attemp_lim").hide()
 
+      }
+    })
+
+
+
+
+
+    $("#exam_check").click(function() {
+
+      exam_check =  $("#exam_check").is(":checked")
+    if (exam_check == true){
+
+      $("#show_timelimit").show()
+
+    }
+    else{
+      $("#show_timelimit").hide()
+
+    }
+    })
+
+
+      
+    </script>
+<script>      intital_value = 1
+  $(".add_exam_field").click(function(){
+    $("#append_inital_field").append(
+      ` <tr>                                    <th scope="row"><input type="text"  class="form-control" placeholder='Label title'></th>                                    <th scope="row">                                      <select style='border: 1px solid #e8ecf1;
+font-size: 0.8125rem;padding: 4px 11px;'>                                        <option value="selection">Selection</option>                                        <option value="Text Input">Text Input</option>                                      </select>                                    </th>                                    <th scope="row" id='multiple_choice`+intital_value+`'>                                      <a href="#" style="    font-size: 16px;
+                                  color: black;"  onclick="multiple_choice_add(`+intital_value+`)">+</a>                                    </th>                                  </tr>`
+    )
+    intital_value = intital_value + 1
+  })
+  function multiple_choice_add(val){
+    $("#multiple_choice"+val).append(
+      `<br><input class=" mt-2" type="text" style="border: 1px solid #e8ecf1;
+font-size: 0.8125rem;">`
+    )
+  }
+</script>
 {% endblock %}

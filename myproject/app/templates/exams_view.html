@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<script src="https://kit.fontawesome.com/16b0815225.js" crossorigin="anonymous"></script>
+
+
+<div class="content-wrapper">
+    <div class="row purchace-popup">
+
+    </div>
+    <div class="row">
+
+
+    </div>
+    <!-- Quick Action Toolbar Starts-->
+
+    <!-- Quick Action Toolbar Ends-->
+
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <a href="{% url 'main_exam' %}">
+                        <button style=" float: right;background: #181824;" type="button"
+                            class="btn btn-dark btn-rounded btn-icon">
+                            <i class="fa fa-plus m-1"></i>
+                        </button>
+                    </a>
+                    <br>
+
+                    <div class="d-sm-flex align-items-center mb-4">
+                        <h4 class="card-title mb-sm-0 mt-2">Exam Management</h4>
+                    </div>
+
+                    <div class="table-responsive border rounded p-1">
+                        <ul class="nav nav-tabs nav-ta" role="tablist" style="float:right;">
+                            <li class="nav-item mx-1">
+                                <a class="nav-link kan-tab active" data-toggle="tab" href="#ho" role="tab"
+                                    aria-selected="false">
+                                    <i class="fas fa-list"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link kan-tab" data-toggle="tab" href="#pro" role="tab"
+                                    aria-selected="false">
+                                    <i class="fas fa-th-large"></i>
+                                </a>
+                            </li>
+                        </ul>
+
+                        
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="ho" role="tabpanel">
+                                <div class="table-responsive mb-1  mt-2">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="font-weight-bold"> S/No</th>
+                                                <th class="font-weight-bold">Exam Title</th>
+                                                <th class="font-weight-bold">Responsible</th>
+                                                <th class="font-weight-bold">Created at</th>
+                                                <th class="font-weight-bold">Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in exam_details %}
+                                            <tr>
+                                                <td>{{forloop.counter}}.</td>
+                                                <td>{{i.Exam_title}}</td>
+                                                <td>{{i.responsible_person}}</td>
+                                                <td> {{i.created_dt|safe}}</td>
+                                                <td><div class="badge badge-success p-2"> {{i.status}}</td>
+                                                <td>
+                                                    <a href="exam_edit_details{{i.id}}"> <i style="color: #181824;
+                            font-weight: bold;
+                            font-size: 16px;" class="fa fa-edit"></i></a>
+                                                    <a href="" class="m-2"> <i style="color: #181824;
+                            font-weight: bold;
+                            font-size: 16px;" class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                    <div class="d-flex mt-4 flex-wrap">
+                                        <p class="text-muted">Showing 1 to 10 of 57 entries</p>
+                                        <nav class="ml-auto">
+                                            <ul class="pagination separated pagination-info">
+                                                <li class="page-item"><a href="#" class="page-link"><i
+                                                            class="icon-arrow-left"></i></a></li>
+                                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                <li class="page-item"><a href="#" class="page-link"><i
+                                                            class="icon-arrow-right"></i></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="tab-pane" id="pro" role="tabpanel">
+                                <div class="table-responsive mb-1  mt-2">
+
+                                    sssssss
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}

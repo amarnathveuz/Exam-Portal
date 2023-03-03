@@ -124,7 +124,6 @@ section_choices =(
 )
 
 
-
 class Main_Exam_Master(common_table):
     Exam_title = models.CharField(max_length=50,null=True)
     responsible_person = models.ForeignKey(User,related_name='Main_Exam_Master_auth_id',on_delete=models.CASCADE,null=True)
@@ -156,7 +155,6 @@ class Main_Question_Bank(common_table):
     comments = models.CharField(max_length=25,null=True)
     total_mark = models.IntegerField(null=True)
     answer_id =  models.ManyToManyField('Question_Bank_multiple_choice', blank=True,related_name="Answer_master_id")
-
 
 
 class Main_Exam_section(common_table):
@@ -192,5 +190,8 @@ class Exam_inital_field(common_table):
 class Exam_inital_field_choice(common_table):
     initial_field_id = models.ForeignKey(Exam_inital_field,related_name ="Exam_inital_field_id",on_delete=models.CASCADE,null=True)
     choice_name = models.CharField(max_length=25,null=True)
+
+
+
 
 

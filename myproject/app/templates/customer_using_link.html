@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="shortcut icon" href="./static/logo.png" />
+</head>
+<body>
+
+
+<div class="col-md-6 grid-margin stretch-card" style="margin: 30px 0px 0px 300px;">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title" style="text-align:center;">Login</h4>
+     <br>
+        <form class="forms-sample" method="POST" action="exam_details" enctype="multipart/form-data">
+          {% csrf_token %}
+            {% for i in data %}
+            <input type="hidden" value="{{i.Exam_id.id}}" name="exam_details">
+            {% if i.field_type == "Text Input" %}
+          <div class="form-group">
+            <label for="exampleInputUsername1">{{i.title}}</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="{{i.title}}" name="uname" required>
+          </div>
+            {% else %}
+          <div class="form-group">
+            <label for="exampleInputUsername1">{{i.title}}</label>
+            <select class="form-control" name="gender">
+                {% for j in i.Exam_inital_field_id.all %}
+              <option value="male">{{j.choice_name}}</option>
+                {% endfor %}
+            </select>
+          </div>
+            {% endif %}
+            {% endfor %}
+          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</body>
+</html>

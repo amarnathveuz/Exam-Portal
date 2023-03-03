@@ -1,0 +1,317 @@
+<style>
+     .profile-pic {
+        width: 92px;
+        max-height: 200px;
+        display: inline-block;
+    }
+
+    .propic img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    img {
+        vertical-align: middle;
+        border-style: none;
+    }
+</style>
+<div class="modal fade bd-example-modal-lg-{{value1}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form class="forms-sample" action="Question_Management_update" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}   
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Question Management</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden"
+                            name="updated_id" value="{{data.id}}">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control modal_question{{value1}}" placeholder="Question"
+                            name="question_name" value="{{data.Question}}">
+                    </div>
+
+
+                    <div class="col-md-2">
+                            <div class="form-group">
+                                <style>
+                                    .uploadFile1 .inputfile::-webkit-file-upload-button {
+                                        display: none;
+                                    }
+                                </style>
+                                <div class="input-group uploadFile1" style="    width: 35%;
+                              float: right;">
+
+                                    <input type="hidden" name="remove_status" value="0" id="remove_id{{value1}}">
+
+                                    <div class="propic" id="propic{{value1}}"
+                                        {% if data.Imagefield == '' or data.Imagefield == None %} {% else %}
+                                        style="display: none" {% endif %}>
+                                        <div class="small-12 medium-2 large-2 columns">
+                                            <div class="circle">
+                                                <img class="profile-pic"
+                                                    src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
+                                                <div class="p-image">
+                                                    <i class="fa fa-camera upload-button" aria-hidden="true"></i>
+                                                    <input class="file-upload" name="Question_image" type="file"
+                                                        accept="image/*">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {% if data.Imagefield == '' or data.Imagefield == None %}
+
+                                    {% else %}
+
+                                    <div class="cust-logo"  id="imagerr{{value1}}" 
+                                        style="background-image: url(./media/{{data.Imagefield}}); background-repeat: no-repeat;">
+
+                                        <span onclick="remove_icon()"><i style="font-size: 14px;
+                                        color: #eb3939;
+                                        font-weight: bold;" class="fa fa-remove"></i></span>
+
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                    </div>
+
+
+                    <div class="col-md-6 mt-4">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p style="    margin: 0 5px 0 0;
+                        color: #091124;
+                        font-size: 12px;
+                        line-height: 1.5;
+                        font-weight: 600;">Question Type</p>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="radio"  name="Question_type"  {% if data.Question_type == "Radio" %} checked {% endif %} value="Radio" > <span style="font-size: 12px;">Multiple choice: only one
+                                    answer</span>
+                                <br>
+                                <input type="radio" name="Question_type" {% if data.Question_type == "Checkbox" %} checked {% endif %} value="Checkbox" > <span style="font-size: 12px;">Multiple choice: multiple answers
+                                allowed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <ul class="nav nav-tabs">
+
+                            <li data-active="#answer{{value1}}"><a data-toggle="tab" href="#answer{{value1}}" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Answers</a></li>
+                            <li data-active="#Description{{value1}}"><a data-toggle="tab" href="#Description{{value1}}"
+                                    style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Description</a></li>
+                            <li data-active="#question_option{{value1}}"><a data-toggle="tab"
+                                    href="#question_option{{value1}}" style="    padding: 7px 12px;
+                            color: white;
+                            background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
+
+                        </ul>
+
+                        <div class="tab-content mt-4">
+                            <div id="answer{{value1}}" class="tab-pane fade active show card" style="border-style: solid;
+                  border-color: #7a7a79;
+                  padding: 12px 12px;
+                  border: 1px solid #0000002e;">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p style="font-size: 12px;">Answers</p>
+                                    </div>
+                                    <div class="col-md-8 card ">
+                                        <br>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Choices</th>
+                                                    <th scope="col">Is a correct answer</th>
+                                                    <th scope="col">Score for this choice</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                                {% for i in data.Exam_section_exam_id.all %}
+                                                <tr>
+                                                    <td>  
+
+                                                      <input type="hidden" name="choice_update[]" value="{{i.id}}">                                                                                              
+                                                      <input style="border: 1px solid #e8ecf1;
+                                            font-size: 0.8125rem;" type="text" name="question_choice[]" value="{{i.choice}}">
+                                           </td>
+                                                    <td>
+                                                        <input type="checkbox" value="{{i.id}}" name="answer[]" {% if i.result_status %} checked {% else %}  {% endif %} >
+                                                    </td> 
+
+                                                    <td>
+                                                        <input style="border: 1px solid #e8ecf1; font-size: 0.8125rem;" name="Score[]" type="number" value="{{i.Mark}}">
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+
+
+                                            <tbody id="choice_add{{value1}}">
+
+                                            </tbody>
+
+
+                                        </table>
+                                        <a class="mt-2" href="#" style="    padding: 3px 3px;
+                              font-size: 12px;
+                              background: #0c0c12;
+                              width: 7%;
+                              color: white;text-decoration: none;" onclick="choice_add_fun(`{{value1}}`)">Add a
+                                            line</a>
+                                        <br>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div id="Description{{value1}}" class="tab-pane fade " style="border-style: solid;
+                  border-color: #7a7a79;
+                
+                  border: 1px solid #0000002e;"><textarea class="form-control"
+                                    placeholder="Description"  name="Description"> {{data.Description}} </textarea>
+                            </div>
+                            <div id="question_option{{value1}}" class="tab-pane fade ">
+                                <div class="row mt-4 card" style="border-style: solid;
+                  border-color: #7a7a79;
+                  padding: 24px 12px;
+                  border: 1px solid #0000002e;">
+
+                                    <div class="col-md-6">
+
+                                        <div class="row">
+                                            <div class="col-md-3 ">
+                                                <p style="font-size: 13px;
+            color: black;
+font-weight: 600;">Mandatory Answer</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="checkbox" name="manadatory" {% if data.manadatory %} checked {% endif %}>
+                                            </div>
+                                            <div class="col-md-12">
+
+                                            </div>
+                                            <div class="col-md-3 ">
+                                                <p style="    font-size: 13px;
+            color: black;
+font-weight: 600;">Image Field</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="checkbox">
+                                            </div>
+
+                                            <div class="col-md-12"></div>
+                                            <div class="col-md-3 ">
+                                                <p style="    font-size: 13px;
+             color: black;
+ font-weight: 600;">Comments</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" name="comments" value="{{data.comments}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="modal_status" class="modal_status{{value1}}" value="{{status}}">
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary"
+                    style="    background: black;
+            border: none;">Save </button>
+                <button type="button" class="btn btn-primary section_btn remove_onclick1{{value1}}" style="    background: black;
+              border: none;display: none;" data-dismiss="modal">Save </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function choice_add_fun(val1) {
+
+
+            $("#choice_add" + val1).append(`<tr>
+            
+            <td>
+            
+              
+              <input style="border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;" type="text" name="question_choice{{value1}}"></td>
+            <td>
+                <input  type="checkbox" >
+            </td>
+
+            <td>
+                <input style="border: 1px solid #e8ecf1; font-size: 0.8125rem;" type="number"></td>
+            </tr>`)
+
+        }
+
+        
+    </script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.profile-pic').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $(".file-upload").on('change', function () {
+            readURL(this);
+        });
+
+        $(".upload-button").on('click', function () {
+            $(".file-upload").click();
+        });
+    });
+</script>
+
+<script>
+
+    function remove_icon() {
+        $("#remove_id"+{{value1}}).val(1)
+        $("#imagerr"+{{value1}}).hide()
+        $("#propic"+{{value1}}).show()
+    }
+
+</script>

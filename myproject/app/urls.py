@@ -36,7 +36,32 @@ urlpatterns = [
     path('demo',views.demo,name='demo'),
     path('demo_action',views.demo_action,name='demo_action'),
     path('main_exam',views.main_exam,name='main_exam'),
+
+    path('exam_save_action',views.exam_save_action,name='exam_save_action'),
+
     path('open_section_based_question',views.open_section_based_question,name='open_section_based_question'),
+
+
+    # ---------------anirudh---update-------------------
+
+    path('view_exams',views.view_exams,name='view_exams'),
+    path('exam_edit_details<int:id>',views.exam_edit_details,name='exam_edit_details'),
+    path('update_exam_details',views.update_exam_details,name='update_exam_details'),
+    path('exam_title_edit_modal',views.exam_title_edit_modal,name='exam_title_edit_modal'),
+    path('exam_title_edit',views.exam_title_edit,name='exam_title_edit'),
+    path('section_Question_view_modal',views.section_Question_view_modal,name='section_Question_view_modal'),
+    path('Question_Management_update',views.Question_Management_update,name='Question_Management_update'),
+    
+
+
+
+    # ----------------jiyad ---------------update---------------------
+    path('attend_exam',views.attend_exam,name='attend_exam'),
+    path('wizard',views.wizard,name='wizard'),
+    path('exam_result',views.exam_result,name='exam_result'),
+    path('customer_using_link',views.customer_using_link,name='customer_using_link'),
+
+    
     
     
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body style="background-image:url('./media/{{data_main_exam.background_image}}');background-repeat: no-repeat;background-size: cover;">
+
+<div style="padding: 34px 20px 38px 100px;">
+    <h1>Thank You...................</h1>
+    <h4>{{data_main_exam.end_message}}</h4>
+
+    {% if data_main_exam.scoring_mode == "2" %}
+    <h1 style="font-weight: bold;color: #2c4446;"> Result :  <span style="color: #df1313;">{{total_score}} </span> <span style="color: red;">/</span>  <span style="color: black;">{{total_mark}}</span></h1>
+    {% endif %}
+
+    {% if data_main_exam.scoring_mode == "1" %}
+
+    <h1 style="font-weight: bold;color: #2c4446;"> Result :  <span style="color: #df1313;">{{total_score}} </span> <span style="color: red;">/</span>  <span style="color: black;">{{total_mark}}</span></h1>
+    <div style="padding: 100px 0px 0px 0px">
+        <a style="color:blue;border-radius: 10px;cursor: pointer;" onclick="answer_button()" type="button"><b>If you wish, click here to review your answers</b></a>
+    </div>
+
+
+    <div class="answer_data" style="display:none;">
+        {% for i in data_answer %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="hidden" value="{{i.Question_id.id}}" name="question_id">
+                    <p>{{i.Question_id.Question}}</p>
+                </div>
+            </div>
+            {% for j in i.Question_id.Exam_section_exam_id.all %}
+            <label>
+            {% if j.choice == i.answer %}
+                {% if j.result_status == True %}
+                <input style="background-color:#b2ebb2;" type="text" name="answer{{i.Question_id.id}}" value="&nbsp;&nbsp;{{forloop.counter}}&nbsp;.&nbsp;{{j.choice}}" class="input-radio" readonly/><br>
+                {% else %}
+                <input style="background-color:#ff1a1a;" type="text" name="answer{{i.Question_id.id}}" value="&nbsp;&nbsp;{{forloop.counter}}&nbsp;.&nbsp;{{j.choice}}" class="input-radio" readonly/><br>
+                {% endif %}
+            {% else %}
+                {% if j.result_status == True %}
+                <input style="background-color:#b2ebb2;" type="text" name="answer{{i.Question_id.id}}" value="&nbsp;&nbsp;{{forloop.counter}}&nbsp;.&nbsp;{{j.choice}}" class="input-radio" readonly/><br>
+                {% else %}
+                <input type="text" name="answer{{i.Question_id.id}}" value="&nbsp;&nbsp;{{forloop.counter}}&nbsp;.&nbsp;{{j.choice}}" class="input-radio" readonly/><br>
+                {% endif %}
+            {% endif %}
+            </label><br>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div style="padding: 134px 0px 0px 0px">
+        <a href="exam_details"><button style="width: 140px;height: 60px;color: #fdecf2;background-color: #485e9d;border-radius: 10px;cursor: pointer;" type="button"><b>BACK TO HOME</b></button></a>
+    </div>
+</div>
+
+<script>
+    function answer_button() {
+        $(".answer_data").show()
+    }
+</script>
+
+
+</body>
+</html>
