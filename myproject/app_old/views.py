@@ -361,6 +361,7 @@ def main_exam(request):
             question = request.POST.getlist("question_name"+str(section_count))
             question_model_name = request.POST.getlist("question_model_name"+str(section_count))
             question_zip = zip(question,question_model_name)
+            
             for  question,model_count in question_zip:
                 choice_data = request.POST.getlist("question_choice"+model_count)
                 question_line_count = request.POST.getlist("question_line_count"+model_count)
