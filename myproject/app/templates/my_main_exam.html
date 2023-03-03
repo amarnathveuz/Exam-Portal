@@ -1,0 +1,357 @@
+
+{% extends 'base.html' %} 
+
+{% block content %}
+
+
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"></h4>
+     <br>
+     <form class="forms-sample" action="exam_save_action" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        
+          <div class="row">
+           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="exampleInputUsername1">Exam Title</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Exam Title" required name="exam_title">
+                  </div>
+            </div>
+            <div class="col-md-6" style="float: right;">
+                <div class="col-md-12">
+                       <div class="form-group"> 
+                         <style>
+                            .uploadFile1 .inputfile::-webkit-file-upload-button {
+                            display: none;
+                        }
+                         </style>
+                              <div class="input-group uploadFile1" style="    width: 35%;
+                              float: right;">
+                                <input type="file" multiple class="inputfile form-control" name="exam_background"> 
+                                   <div class="input-group-append">    <span class="input-group-text"> <i class="fa fa-user"></i></span> 
+                                   </div> 
+                                   </div> 
+                                 </div> 
+                            </div>
+                
+
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="">Responsible</label>
+                      <select name="responsible_name" class="form-control">
+                        <option>Select User</option>
+                        {% for i in user_details %}
+            
+                        <option value="{{i.id}}">{{i.username}}</option>
+            
+                        {% endfor %}
+                       </select>
+                    </div>
+              </div>
+
+
+
+            <div class="col-md-12">
+                <ul class="nav nav-tabs">
+                    <li  class="active" data-active="#home"><a data-toggle="tab" href="#home" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Questions</a></li>
+                    <li  data-active="#menu1"><a data-toggle="tab" href="#menu1" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Start Message</a></li>
+                    <li  data-active="#menu2"><a data-toggle="tab" href="#menu2" style="    padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">End Message</a></li>
+                        <li  data-active="#menu2"><a data-toggle="tab" href="#menu3" style="    padding: 7px 12px;
+                            color: white;
+                            background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>
+
+                        <li  data-active="#menu2"><a data-toggle="tab" href="#menu4" style="    padding: 7px 12px;
+                            color: white;
+                            background: #181824;margin-left: 3px;text-decoration: none;">Initial Fields</a></li>
+                   
+                  </ul>
+                
+                  <div class="tab-content mt-4">
+                    <div id="home" class="tab-pane fade in active show" style="border-style: solid;
+                    border-color: #7a7a79;
+                    padding: 24px 12px;
+                    border: 1px solid #0000002e;">
+                     
+                     <a href="#" style="    background: #181824d1;
+                     color: white;
+                     padding: 5px 7px;
+                     font-size: 11px;text-decoration: none;"><i class="fa fa-plus"></i> Add a question</a>
+                                          <a href="#" style="    background: #181824d1;
+                                          color: white;
+                                          padding: 5px 7px;
+                                          font-size: 11px;text-decoration: none;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Add a section</a>
+                     <br>
+                     <br>
+                     <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Title</th>
+                          <th scope="col">Question Type</th>
+                         
+                        </tr>
+                      </thead>
+                      <tbody id="append_table">
+                       
+
+                      </tbody>
+                    </table>
+                      <div class="btn-wrap">
+                           
+                      </div>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                      <textarea class="form-control" placeholder="Start message..." name="start_message" ></textarea>
+                            
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                      <textarea class="form-control" name="end_message" placeholder="end message..." ></textarea>
+                       
+                    </div>
+                  
+                    
+                    <div id="menu3" class="tab-pane fade">
+                      <div class="row"> 
+                        <div class="col-md-6"> 
+                            <div class="form-group"> 
+                                <label for="field-1" class="control-label"><h5>Layout</h5></label> &nbsp; &nbsp; &nbsp;
+                                <div>
+                                  <input type="radio" value="0"  name="layout" class=""> One page with all the questions
+                                </div>
+                                <div>
+                                  <input type="radio" value="1"  name="layout" class=""> One page per section
+                                </div>
+                                <div>
+                                  <input type="radio" value="2"  name="layout" class=""> One page per question
+                                </div>
+                            </div> 
+
+                        </div> 
+
+                        
+                          <div class="col-md-6"> 
+                              <div class="form-group"> 
+                                  <label for="field-1" class="control-label"><h5>Access Mode</h5></label> &nbsp; &nbsp; &nbsp;
+                                  <select name="progression" class="form-control" >
+                                    <option value="0">Anyone with the link</option>
+                                    <option value="1">Invited people only</option>
+                                  </select>
+                                  
+                                 
+                              </div> 
+                          </div> 
+
+
+                        </div>
+                      
+
+                      <div class="row"> 
+                        <div class="col-md-6"> 
+                            <div class="form-group"> 
+                                <label for="field-1" class="control-label"><h5>Progression Mode</h5></label> &nbsp; &nbsp; &nbsp;
+                                <div>
+                                  <input type="radio" value="Percentage"  name="progression" class=""  > Percentage
+                                </div>
+                                <div>
+                                  <input type="radio" value="Number"  name="progression" class=""  > Number
+                                </div>
+                               
+                            </div>
+                        </div> 
+
+                        <div class="col-md-6"> 
+                          <div class="form-group"> 
+                              <label for="field-1" class="control-label"><h5>Login Required</h5> </label> &nbsp; &nbsp; &nbsp;
+                              <input type="checkbox"  name="answer" class=""  > 
+                          </div> 
+                      </div> 
+
+                      </div>
+
+                      <div class="row"> 
+                        <div class="col-md-6"> 
+                            <div class="form-group"> 
+                                <label for="field-1" class="control-label"><h5>Exam Time limit</h5></label> &nbsp; &nbsp; &nbsp;
+                                <div>
+                                  <input type="text"  name="exam_time_limit" class="form-control"  > 
+                                </div>
+                            </div> 
+                        </div> 
+
+
+                        <div class="col-md-6"> 
+                          <div class="form-group"> 
+                              <label for="field-1" class="control-label"><h5>Attempts Time limit</h5></label> &nbsp; &nbsp; &nbsp;
+                              <div>
+                                <input type="text"  name="progression" class="form-control"  > 
+                              </div>
+                          </div> 
+                      </div> 
+
+                      </div>
+
+                      <div class="row"> 
+                        <div class="col-md-6"> 
+                            <div class="form-group"> 
+                                <label for="field-1" class="control-label"><h5>Selection Mode</h5></label> &nbsp; &nbsp; &nbsp;
+                                <div>
+                                  <input type="radio"  name="progression" class=""> All questions
+                                </div>
+                                <div>
+                                  <input type="radio"  name="progression" class=""> Randomized per section
+                                </div>
+                               
+                            </div> 
+                        </div> 
+                      </div>
+
+
+
+                      <div class="row"> 
+                        <div class="col-md-6"> 
+                            <div class="form-group"> 
+                                <label for="field-1" class="control-label"><h5>Scoring</h5></label> &nbsp; &nbsp; &nbsp;
+                                <div>
+                                  <input type="radio"  name="Scoring" class=""> No scoring
+                                </div>
+                                <div>
+                                  <input type="radio"  name="Scoring" class=""> Scoring with answers at the end
+                                </div>
+                                <div>
+                                  <input type="radio"  name="Scoring" class=""> Scoring without answers at the end
+                                </div>
+                            </div> 
+                        </div> 
+                      </div>
+
+                      </div>
+                  </div>
+            </div>
+
+
+          </div>
+        
+
+          <div class="form-check form-check-flat form-check-primary">
+           
+          </div>
+          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          <button class="btn btn-light">Cancel</button>
+
+        
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Section Management</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" name="section_title" class="form-control section_title" placeholder="title">
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary section_btn" style="background: black;
+          border: none;">Save </button>
+        </div>
+     
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+
+
+    let i = 1
+    $(".section_btn").click(function(){
+
+      var section_string = $(".section_title").val();
+
+      if(section_string == ''){
+
+      }
+      else{
+
+        $("#append_table").append(`
+        <tr bgcolor="grey" style="background:#1818241f">
+                          <td>`+section_string+`</td>
+                          <td></td>
+                          <input type="hidden" value="`+i+`" name="section_count" id="section_id`+i+`" >
+                          <td><a href="#" onclick="section_question(`+i+`)" style="    background: #181824d1;
+                          color: white;
+                          padding: 5px 7px;
+                          font-size: 11px;
+                          text-decoration: none;"><i class="fa fa-plus"></i> Add question</a></td>
+                        </tr>
+                        <tr>
+                         
+                         <th colspan="4" >
+                          
+                          <table class="table table-bordered" style="margin-left: 14px;">
+                            <tr>
+                              <td>Question</td>
+                              <td>Type</td>
+                              </tr>
+                              <tbody id="apppend_child`+i+`">
+
+                                </tbody>
+
+                            </table>
+                          </th>
+                        </tr>
+        `)
+        i = i + 1
+         $(".section_title").val('');
+         $('#exampleModal').modal('hide');
+      }
+    })
+
+    function section_question(data_id){
+      var modal_id = $("#section_id"+data_id).val();
+     
+      $.ajax(
+    {
+        type:"GET",
+        url: "open_section_based_question",
+        data:{
+                 modal_id: modal_id,
+                 data_id:data_id
+        },
+        success: function( data ) 
+        {
+
+          var modal_name = data_id+"-"+modal_id
+          $("#apppend_child"+data_id).append(data)
+          $('.bd-example-modal-lg-'+modal_name).modal('show');
+          let total = parseInt(modal_id) + 1
+          $("#section_id"+data_id).val(total);
+        }
+     })
+    }
+    </script>
+
+{% endblock %}

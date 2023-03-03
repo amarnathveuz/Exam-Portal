@@ -124,7 +124,6 @@ section_choices =(
 )
 
 
-
 class Main_Exam_Master(common_table):
     Exam_title = models.CharField(max_length=50,null=True)
     responsible_person = models.ForeignKey(User,related_name='Main_Exam_Master_auth_id',on_delete=models.CASCADE,null=True)
@@ -138,7 +137,7 @@ class Main_Exam_Master(common_table):
     scoring_mode = models.CharField(max_length=25,choices=scoring_choices,null=True)
     access_mode = models.CharField(max_length=25,choices=access_choices,null=True)
     Login_required = models.BooleanField(null=True)
-    attempt_limit = models.TimeField(null=True)
+    attempt_limit = models.IntegerField(null=True)
 
 question_type_choices =(
     ("Radio","Multiple choice: only one answer"),
@@ -155,19 +154,18 @@ class Main_Question_Bank(common_table):
     manadatory = models.BooleanField(default=False)
     comments = models.CharField(max_length=25,null=True)
     total_mark = models.IntegerField(null=True)
-    answer_id =  models.ManyToManyField('Question_Bank_multiple', blank=True,related_name="Answer_master_id")
-
+    answer_id =  models.ManyToManyField('Question_Bank_multiple_choice', blank=True,related_name="Answer_master_id")
 
 
 class Main_Exam_section(common_table):
     Exam_id = models.ForeignKey(Main_Exam_Master,related_name ="Main_Exam_section_exam_id",on_delete=models.CASCADE,null=True)
-    Exam_title = models.CharField(max_length=50,null=True)
+    section_title = models.CharField(max_length=50,null=True)
     section_type = models.CharField(max_length=20,choices=section_choices,null=True)
     Question_bank_id = models.ForeignKey(Main_Question_Bank,related_name='Main_Exam_Master_question_id',on_delete=models.CASCADE,null=True)
 
-class Question_Bank_multiple(common_table):
+class Question_Bank_multiple_choice(common_table):
     Question_id = models.ForeignKey(Main_Question_Bank,related_name ="Exam_section_exam_id",on_delete=models.CASCADE,null=True)
-    question_name = models.CharField(max_length=50,null=True)
+    choice = models.CharField(max_length=50,null=True)
     Imagefield = models.FileField(upload_to='Question_Bank_multiple',null=True)
     Mark = models.IntegerField(null=True)
     result_status = models.BooleanField(default=False)
@@ -175,6 +173,25 @@ class Question_Bank_multiple(common_table):
 class Section_Question_Mapping(common_table):
     Section_id = models.ForeignKey(Main_Exam_section,related_name ="Section_Question_Mapping_id",on_delete=models.CASCADE,null=True)
     Question_id = models.ForeignKey(Main_Question_Bank,related_name ="Question_Bank_id",on_delete=models.CASCADE,null=True)
+
+
+Exam_start_field=(
+    ("selection","selection"),
+    ("Text Input","Text Input"),
+   
+)
+
+
+class Exam_inital_field(common_table):
+    Exam_id = models.ForeignKey(Main_Exam_Master,related_name ="Exam_inital_field_exam_id",on_delete=models.CASCADE,null=True)
+    title = models.TextField()
+    field_type = models.CharField(max_length=20,choices=Exam_start_field,null=True)
+
+class Exam_inital_field_choice(common_table):
+    initial_field_id = models.ForeignKey(Exam_inital_field,related_name ="Exam_inital_field_id",on_delete=models.CASCADE,null=True)
+    choice_name = models.CharField(max_length=25,null=True)
+
+
 
 
 

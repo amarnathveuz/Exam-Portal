@@ -1,0 +1,277 @@
+<div class="modal fade bd-example-modal-lg-{{value1}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <div class="modal-header">
+          <h4 class="modal-title mt-0" style="color: #f9365f;
+          font-weight: bold;">Add question</h4> 
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div> 
+      
+      <div class="modal-body"> 
+         
+
+          <div class="row"> 
+              <div class="col-md-6"> 
+                  <div class="form-group"> 
+                      <label for="field-1" class="control-label">Question name</label> 
+                      <input type="text"  required name="questionname{{section_id}}" class="form-control modal_question{{value1}}" id="questionname" > 
+                  </div> 
+              </div> 
+
+              <div class="col-md-6" style="float: right;">
+                <div class="col-md-12">
+                      <div class="form-group"> 
+                         <style>
+                            .uploadFile1 .inputfile::-webkit-file-upload-button {
+                                display: none;
+                            }
+                         </style>
+                            <div class="input-group uploadFile1" style="    width: 35%;
+                              float: right;">
+                                <input type="file" multiple class="inputfile form-control" name="question_image" > 
+                                   <div class="input-group-append">    <span class="input-group-text"> <i class="fa fa-question-circle"></i></span> 
+                                   </div> 
+                            </div> 
+                      </div> 
+                </div>
+          </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                  <label for="field-1" class="control-label">Question Type</label>
+                  <div class="my-1">
+                      <div class="radio radio-primary form-check-inline">
+                          <input  id="question_type" class="question_type_radio{{value1}}" type="radio"  required name="question_type" value="Radio">&nbsp;&nbsp;
+
+                          <label for="inlineRadio1"> Multiple choice: only one answer </label>
+                      </div>
+
+                      <div class="radio radio-primary form-check-inline">
+                          <input  id="question_type" class="question_type_checkbox{{value1}}" type="radio" name="question_type" value="Checkbox">&nbsp;&nbsp;
+
+                          <label for="inlineRadio2"> Multiple choice: multiple answers allowed </label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+          <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li  class="active" data-active="#home"><a data-toggle="tab" href="#answers{{value1}}" style="padding: 7px 12px;
+                    color: white;
+                    background: #181824;margin-left: 3px;text-decoration: none;">Answers</a></li>
+                
+                <li  data-active="#menu2"><a data-toggle="tab" href="#description{{value1}}" style="padding: 7px 12px;
+                    color: white;
+                    background: #181824;margin-left: 3px;text-decoration: none;">Description</a></li>
+                    <li  data-active="#menu2"><a data-toggle="tab" href="#option{{value1}}" style="padding: 7px 12px;
+                        color: white;
+                        background: #181824;margin-left: 3px;text-decoration: none;">Options</a></li>         
+              </ul>
+
+             
+              
+            
+              <div class="tab-content mt-4">
+
+                <div id="answers{{value1}}" class="tab-pane fade in active show ">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="field-1" class="control-label">Answers</label>
+                        <table id="datatable"  class="table dt-responsive table-bordered nowrap usertype-tbl mt-2" style="border: 1px solid black; width: 230%;">
+
+
+                                <tr>
+                                    <th class="th_btnpand">
+                                        <div class="appnd_user_btn append_btn" style="cursor: pointer;">+</div>
+                                    </th>
+                                    <th  class="th_choices">Choices</th>
+                                    <th class="th_user_decrptn">Image</th>
+                                    <th class="th_user_strtdate">Is Correct</th>
+                                    <th class="th_user_enddate">Score</th>
+                                </tr>
+                                <tbody class="apenduser">
+                                <tr>
+                                    <td class="th_btnpand">
+                                        <div class="appnd_user_minus_btn appnd_minus_btn" style="cursor: pointer;">-</div>
+                                    </td>
+                                    <td class="th_choices">
+                                      <input type="text" name="choices" class="form-control">
+                                    </td>
+                                    <td class="th_user_decrptn">
+                                        <input name="choice_image" type="file" class="form-control">
+                                    </td>
+                                    <td class="th_user_strtdate">
+                                        <div class="input-group date">
+                                            <input style="margin-left: 38px;" value="True"  class="text-center"  type="checkbox" name="result_status" >
+                                        </div>
+                                    </td>
+                                    <td class="th_user_enddate">
+                                        <div class="input-group date">
+                                            <input  name="Mark" type="text" class="input form-control">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            
+
+
+                           
+                        </table>
+                    </div>
+                </div>
+                </div>
+
+
+
+                <div id="description{{value1}}" class="tab-pane fade">
+                  <textarea class="form-control" placeholder="description" name="question_description" ></textarea>
+                        
+                </div>
+                <div id="option{{value1}}" class="tab-pane fade">
+
+
+                  <div class="row"> 
+                    <div class="col-md-6"> 
+                        <div class="form-group"> 
+                            <label for="field-1" class="control-label">Mandatory Answer</label> &nbsp; &nbsp; &nbsp;
+                            <input type="checkbox" value=""  name="question_manadatory" class=""  > 
+                        </div> 
+                    </div> 
+                  </div>
+
+
+                  <div class="row"> 
+                    <div class="col-md-6"> 
+                        <div class="form-group"> 
+                            <label for="field-1" class="control-label">Images on answers</label> &nbsp; &nbsp; &nbsp;
+                            <input type="checkbox"  name="answer_imagefield" class=""  > 
+                        </div> 
+                    </div> 
+                  </div>
+
+
+                  <div class="row"> 
+                    <div class="col-md-6"> 
+                        <div class="form-group"> 
+                            <label for="field-1" class="control-label">Comment Field</label> &nbsp; &nbsp; &nbsp;
+                            <input type="text"  name="question_comment" class="form-control"  > 
+                        </div> 
+                    </div> 
+                  </div>
+
+                </div>
+              </div>
+        </div>
+            </div>
+          
+        
+      </div> 
+      <div class="modal-footer"> 
+          <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button> 
+          <button type="button" class="btn btn-primary section_btn remove_onclick{{value1}}" onclick="modal_question_action(`{{value1}}`,`{{data_id}}`)" style="background: black;
+          border: none;">Save </button>
+        <button type="button" class="btn btn-primary section_btn remove_onclick1{{value1}}"  style="    background: black;
+        border: none;display: none;" data-dismiss="modal">Save </button>
+      </div> 
+
+
+    </div>
+  </div>
+
+  <script>
+    function choice_add_fun(val1){
+        $("#choice_add"+val1).append(`<tr>
+            
+            <td><input style="border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;" type="text" ></td>
+            <td><input  type="checkbox" ></td>
+            <td><input style="border: 1px solid #e8ecf1;
+    font-size: 0.8125rem;" type="number" ></td>
+            </tr>`)
+    }
+
+    
+
+
+    function modal_question_action(val1,val2){
+   
+       var question =  $(".modal_question"+val1).val();
+
+       if ($(".question_type_radio"+val1).is(":checked")){
+            question_type = "Multiple choice: only one answer"
+         }
+
+         else if($(".question_type_checkbox"+val1).is(":checked")){
+
+            question_type = "Multiple choice: multiple answers allowed"
+
+         }
+
+       $("#apppend_child"+val2).append(`
+
+      <tr style="font-weight: 500;">
+          <td style="font-weight: 500;"> 
+            <a href="#"  style="text-decoration: none;
+          color: black;
+          font-size: 12px;" data-toggle="modal" data-target=".bd-example-modal-lg-{{value1}}">
+          `+question+`
+          </a>                
+          </td>
+          <td>`+question_type+`</td>
+        
+        
+    </tr>
+
+       `)
+
+       $('.bd-example-modal-lg-'+val1).modal('hide');
+    
+       $('.remove_onclick'+val1).hide()
+       $('.remove_onclick1'+val1).show()
+    }
+  </script>
+
+
+  
+<script type="text/javascript">
+  $(document).ready(function() {
+  $(".appnd_user_btn").click(function() {
+  
+      $(".apenduser").append(` <tr>
+                                        <td class="th_btnpand">
+                                            <div class="appnd_user_minus_btn appnd_minus_btn" style="cursor: pointer;">-</div>
+                                        </td>
+                                        <td class="th_choices">
+                                          <input type="text" name="choices" class="form-control">
+                                        </td>
+                                        <td class="th_user_decrptn">
+                                            <input name="choice_image" type="file" class="form-control">
+                                        </td>
+                                        <td class="th_user_strtdate">
+                                            <div class="input-group date">
+                                                <input style="margin-left: 38px;"  class="text-center"  type="checkbox" name="result_status" >
+                                            </div>
+                                        </td>
+                                        <td class="th_user_enddate">
+                                            <div class="input-group date">
+                                                <input  name="Mark" type="text" class="input form-control">
+                                            </div>
+                                        </td>
+                                    </tr>
+      `);
+      $(".appnd_user_minus_btn").click(function() {
+          $(this).parent().parent().remove();
+      });
+  });
+  });
+  $(".appnd_user_minus_btn").click(function() {
+          $(this).parent().parent().remove();
+      });
+</script>

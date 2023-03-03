@@ -1,0 +1,75 @@
+
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div class="col-md-8 grid-margin stretch-card">
+    <div class="card" style="    ">
+      <div class="card-body">
+        <h4 class="card-title">Question creation</h4>
+     <br>
+
+        <form class="forms-sample" method="POST" action="">
+
+          {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputUsername1">Select subject</label>
+               <select name="subject" class="form-control">
+                <option>Select subject</option>
+                {% for i in subject_data %}
+
+                <option value="{{i.id}}">{{i.name}}</option>
+
+                {% endfor %}
+               </select>
+              </div>
+          <div class="form-group">
+            <label for="exampleInputUsername1">Question</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Question" required name="question">
+          </div>
+        <div class="form-group">
+            <label for="exampleInputUsername1">Option A</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Option A" required name="optiona">
+          </div>
+        
+          <div class="form-group">
+            <label for="exampleInputUsername1">Option B</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Option B" name="optionb" required>
+          </div>   
+          <div class="form-group">
+            <label for="exampleInputUsername1">Option C</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Option C"  name="optionc" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputUsername1">Option D</label>
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Option D" name="optiond" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputUsername1">Answer</label>
+            <select class="form-control" name="answer">
+              <option value="a">A</option>
+              <option value="b">B</option>
+              <option value="c">C</option>
+              <option value="d">D</option>
+            </select>
+          </div>
+        
+          <div class="form-group">
+            <label for="exampleInputUsername1">Mark</label>
+            <input type="number" class="form-control" id="exampleInputUsername1" placeholder="5" required name="mark">
+          </div>
+          <div class="form-check form-check-flat form-check-primary">
+           
+          </div>
+          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+{% endblock %}
