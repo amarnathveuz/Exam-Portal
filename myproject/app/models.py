@@ -238,6 +238,7 @@ class Exam_attend_user(models.Model):
                                    null=True)
     created_dt = models.DateField(auto_now_add=True)
     created_tm = models.TimeField(auto_now_add=True)
+    attend_status = models.BooleanField(default=False)
 
 
 
@@ -252,7 +253,7 @@ class exam_attend_user_score(models.Model):
     exam_attend_user_id  = models.ForeignKey(Exam_attend_user, related_name="exam_attend_user_score_user_id", on_delete=models.CASCADE,null=True)
     section_question_id  = models.ForeignKey(Section_Question_Mapping, related_name="exam_attend_user_score_question_id", on_delete=models.CASCADE,null=True)
     Mark = models.IntegerField(null=True)
-    attend_status = models.BooleanField(default=False)
+    result_status = models.BooleanField(default=False)
     Question_id = models.ForeignKey(Main_Question_Bank, related_name="exam_attend_user_score_Question_Bank_id", on_delete=models.CASCADE,null=True)
     correct_answer = models.ManyToManyField(Question_Bank_multiple_choice,related_name="exam_attend_user_score_Question_Bank_id")  
 
