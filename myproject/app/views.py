@@ -393,11 +393,18 @@ def exam_save_action(request):
         access_mode = request.POST.get("access_mode",False)
 
         login_required = request.POST.get("login_required",False)
-        print("login_required:::::",login_required)
 
         attempt_limit = request.POST.get("attempt_limit",False)
         if login_required == False:
             attempt_limit = 0
+        else:
+            pass
+
+        section_line = request.POST.getlist("section_line")
+
+        if len(section_line) == 0:
+            messages.warning(request,"Add atleast one question")
+            return redirect(request.META['HTTP_REFERER'])
         else:
             pass
 
@@ -414,7 +421,6 @@ def exam_save_action(request):
             )
         else:
 
-
             exam_save = Main_Exam_Master.objects.create(Exam_title =exam_title,responsible_person_id =responsible_name,
             background_image = exam_background,
             start_message = start_message,end_message = end_message,
@@ -425,149 +431,123 @@ def exam_save_action(request):
             attempt_limit = attempt_limit
             )
 
-        section_line = request.POST.getlist("section_line")
-        print("section_line::::::",section_line)
 
-        if len(section_line) == 0:
-            messages.warning(request,"Add atleast one question")
-            return redirect(request.META['HTTP_REFERER'])
-        else:
-            pass
+        # Main_Exam_section save
+
         section_line_count = request.POST.getlist("section_line_count")
-        print("section_line_count:::::",section_line_count)
         modal_status = request.POST.getlist("modal_status")
-        print("modal_status:::::",modal_status)
-
+       
         main_zip = zip(section_line,section_line_count,modal_status)
-        for section_title,section_count,modal_status in main_zip:            
+        for section_title,section_count,modal_status in main_zip:    
+
+            if modal_status != "direct_question" :
+
+                section_save = Main_Exam_section.objects.create(Exam_id_id = exam_save.id ,section_title = section_title,
+                        section_type = "Section",
+                        )
+
+            else:
+
+                section_save = Main_Exam_section.objects.create(Exam_id_id = exam_save.id ,section_title = section_title,
+                        section_type = "Question",
+                        )
+
+            #  Main_Question_Bank save           
 
             question = request.POST.getlist("question_name"+str(section_count))
-            print("question::::::",question)
-            
-            question_image = request.FILES.getlist('question_image'+str(section_count))
-            question_type = request.POST.getlist("question_type"+str(section_count),False)
-            print("question_type:::::::::",question_type)
-            question_description = request.POST.getlist("qstn_descriptn"+str(section_count),False)
-            question_mandatory = request.POST.getlist("question_mandatory"+str(section_count),False)
-            print("question_mandatory:::::",question_mandatory)
-            question_comment = request.POST.getlist("question_comment"+str(section_count),False)
+            question_description = request.POST.getlist("qstn_descriptn"+str(section_count))
 
-            model_count = request.POST.getlist("question_model_name"+str(section_count),False)
-            print("model_count::::::::",model_count)
+            question_comment = request.POST.getlist("question_comment"+str(section_count))
+            model_count = request.POST.getlist("question_model_name"+str(section_count))
 
-            question_length = len(question)
+            question_zip = zip(question,question_description,question_comment,model_count)
+            for  question,question_description,question_comment,model_count in question_zip:
 
-            for i in range(0,question_length):
-
-                print("questionppppppp:::::::",question[i])
+                question_type = request.POST.get("question_type"+model_count)
+                question_mandatory = request.POST.get("question_mandatory"+model_count,False)
 
                 try:
-
-                    if question_image[i]:
-
-                        question_save = Main_Question_Bank.objects.create(Question=question[i],Imagefield = question_image[i],
-                        Description =  question_description[i], 
-                        comments = question_comment[i])
-                        try:
-
-                            if question_mandatory[i]:
-                                print("question_mandatory[i]::::::::",question_mandatory[i])
-                                question_save.manadatory = question_mandatory[i]
-                            pass
-                        except:
-                            pass
-
-                    else:
-                        pass
+                  
+                    question_image = request.FILES['question_image'+model_count]
+                    question_save = Main_Question_Bank.objects.create(Question=question,
+                        Description =  question_description, Question_type = question_type,
+                        comments = question_comment,Imagefield =question_image,manadatory = question_mandatory)
 
                 except:
-                     
-                    question_save = Main_Question_Bank.objects.create(Question=question[i],
-                    Description =  question_description[i],
-                    comments = question_comment[i])
 
-                    try:
-
-                            if question_mandatory[i]:
-                                print("question_mandatory[i]::::::::",question_mandatory[i])
-                                question_save.manadatory = question_mandatory[i]
-                            else:
-                                pass
-                    except:
-                        pass
-
-
-
+                    question_save = Main_Question_Bank.objects.create(Question=question,
+                        Description =  question_description, Question_type = question_type,
+                        comments = question_comment,manadatory = question_mandatory)
 
                 if modal_status == "direct_question":
 
-                    section_save = Main_Exam_section.objects.create(Exam_id_id = exam_save.id ,section_title = section_title,
-                            section_type = "Question",
-                            Question_bank_id_id = question_save.id)
-                    
+                        section_save.Question_bank_id_id = question_save.id
+                        section_save.save()
+
+                        Section_Question_Mapping.objects.create(Section_id_id = section_save.id,Question_id_id = question_save.id)
+                else:
                     Section_Question_Mapping.objects.create(Section_id_id = section_save.id,Question_id_id = question_save.id)
-
-                else :
-
-
-                    section_save = Main_Exam_section.objects.create(Exam_id_id = exam_save.id ,section_title = section_title,
-                            section_type = "Section",
-                            Question_bank_id_id = question_save.id)
-                    
-                    Section_Question_Mapping.objects.create(Section_id_id = section_save.id,Question_id_id = question_save.id)
+                    pass
 
 
-                choice_data = request.POST.getlist("question_choice"+model_count[i])
-                new_choice = list(filter(None, choice_data))
-                choice_length = len(new_choice)
-
-                choice_image = request.FILES.getlist('choice_image'+model_count[i])
-                new_choice_image = list(filter(None, choice_image))
-
-
+                # Question_Bank_multiple_choice save 
                 
+                question_line_count = request.POST.getlist("question_line_count"+model_count)
 
-                # choice_image_check  =   request.POST.get("choice_image_check"+model_count[i],False)
+                total_score = 0
 
-                # print("choice_image_check:::",choice_image_check)
+                for  choice_count in question_line_count:
 
-                
+                    choice_data = request.POST.get("question_choice"+choice_count+'-'+model_count)
+                    result_status = request.POST.get("addline_check"+choice_count+'-'+model_count,False)
+                    Score = request.POST.get("Score"+choice_count+'-'+model_count,False)
 
-                result_status = request.POST.getlist("result_status"+model_count[i],False)
-                print("result_status:::::",result_status)
-                if result_status != False:
+                    if (result_status == "True"):
+                        total_score += int(Score)
 
-                    result_status = list(filter(None, result_status))
-                    print("result_status:::::",result_status)
-                Mark = request.POST.getlist("Mark"+model_count[i],False)
-                
-                new_mark = list(filter(None, Mark))
-                print("new_mark:::::::::",new_mark)
-
-                # total_score = sum(Mark)
-                # print("total_score::::::",total_score)
-
-                for i in range(0,choice_length):
                     try:
+                        file_data = request.FILES['question_image_choice'+choice_count+'-'+model_count]
 
-                        if new_choice_image[i]:
-                            question_choices = Question_Bank_multiple_choice.objects.create(Question_id_id=question_save.id,choice= new_choice[i],
-                            Imagefield =  new_choice_image[i],Mark = new_mark[i],result_status=result_status[i]
+                        import os
+                        extension = os.path.splitext(str(file_data))[1]
+
+                        question_choices = Question_Bank_multiple_choice.objects.create(Question_id_id=question_save.id,choice= choice_data,
+                            Imagefield =  file_data, file_type = extension, Mark = Score,result_status=result_status
                             )
-                    
-                            question_save.answer_id.add(question_choices.id)
-                        else:
-                            pass
+                        question_save.answer_id.add(question_choices.id)
 
                     except:
 
-                        question_choices = Question_Bank_multiple_choice.objects.create(Question_id_id=question_save.id,choice= new_choice[i],
-                            Mark = new_mark[i],result_status=result_status[i]
+                        question_choices = Question_Bank_multiple_choice.objects.create(Question_id_id=question_save.id,choice= choice_data,
+                            Mark = Score,result_status=result_status
                             )
-                    
                         question_save.answer_id.add(question_choices.id)
-                
-                
+                        pass
+
+                question_save.total_mark = total_score
+                question_save.save()
+
+
+        initial_line_count = request.POST.getlist("initial_count")
+
+        for initial_count in initial_line_count:
+
+            initial_label =  request.POST.get("initial_label"+initial_count)
+            initial_type =  request.POST.get("initial_type"+initial_count)
+
+            exam_initial_save = Exam_inital_field.objects.create(Exam_id_id = exam_save.id,title = initial_label,field_type = initial_type  )
+
+            if initial_type == "selection":
+
+                initial_answer =  request.POST.getlist("initial_answer"+initial_count)
+
+                for i in initial_answer:
+
+                    Exam_inital_field_choice.objects.create(initial_field_id_id = exam_initial_save.id,choice_name = i)
+
+            else:
+                pass
+
         messages.success(request,"Successfully added Exam details")
         return redirect('main_exam')
 
@@ -580,7 +560,6 @@ def open_section_based_question(request):
     value1 = str(data_id)+"-"+str(modal_id)
     
     return render(request,'open_section_based_question.html',{'value1':value1,'modal_id':modal_id,'data_id':data_id,'status':status})
-
 
 
 

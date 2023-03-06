@@ -12,5 +12,8 @@ admin.site.register(Question_Bank_multiple_choice)
 admin.site.register(Section_Question_Mapping)
 
 
+admin.site.register(Exam_inital_field)
+admin.site.register(Exam_inital_field_choice)
+
 
 

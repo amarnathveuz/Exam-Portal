@@ -167,6 +167,7 @@ class Question_Bank_multiple_choice(common_table):
     Question_id = models.ForeignKey(Main_Question_Bank,related_name ="Exam_section_exam_id",on_delete=models.CASCADE,null=True)
     choice = models.CharField(max_length=50,null=True)
     Imagefield = models.FileField(upload_to='Question_Bank_multiple',null=True)
+    file_type = models.CharField(max_length=20,null=True)
     Mark = models.IntegerField(null=True)
     result_status = models.BooleanField(default=False)
 
@@ -191,6 +192,57 @@ class Exam_inital_field_choice(common_table):
     initial_field_id = models.ForeignKey(Exam_inital_field,related_name ="Exam_inital_field_id",on_delete=models.CASCADE,null=True)
     choice_name = models.CharField(max_length=25,null=True)
 
+
+
+
+
+
+
+Exam_attend_user_type=(
+    ("login_user","login_user"),
+    ("non_login_user","non_login_user"),
+   
+)
+
+
+class Exam_attend_user(models.Model):
+    exam_id  = models.ForeignKey(Main_Exam_Master, related_name="Exam_attend_user_exam_id", on_delete=models.CASCADE,null=True)
+    user_type = models.CharField(choices=Exam_attend_user_type,null=True,max_length=25)
+    auth_user = models.ForeignKey(User, related_name="Exam_attend_user_auth_id", on_delete=models.CASCADE,
+                                   null=True)
+    created_dt = models.DateField(auto_now_add=True)
+    created_tm = models.TimeField(auto_now_add=True)
+
+
+
+class exam_attend_user_initial_field(models.Model):
+    exam_attend_user_id  = models.ForeignKey(Exam_attend_user, related_name="exam_attend_user_initial_field_attend_id", on_delete=models.CASCADE,null=True)
+    Exam_inital_field_id = models.ForeignKey(Exam_inital_field, related_name="exam_attend_user_initial_field_id_Exam_inital_field", on_delete=models.CASCADE,null=True)
+    answer = models.CharField(max_length=25,null=True)
+
+
+
+class exam_attend_user_score(models.Model):
+    exam_attend_user_id  = models.ForeignKey(Exam_attend_user, related_name="exam_attend_user_score_user_id", on_delete=models.CASCADE,null=True)
+    section_question_id  = models.ForeignKey(Section_Question_Mapping, related_name="exam_attend_user_score_question_id", on_delete=models.CASCADE,null=True)
+    Mark = models.IntegerField(null=True)
+    attend_status = models.BooleanField(default=False)
+    Question_id = models.ForeignKey(Main_Question_Bank, related_name="exam_attend_user_score_Question_Bank_id", on_delete=models.CASCADE,null=True)
+    correct_answer = models.ManyToManyField(Question_Bank_multiple_choice,related_name="exam_attend_user_score_Question_Bank_id")  
+
+
+
+
+
+
+
+class customer_answers(models.Model):
+    auth_user = models.ForeignKey(User, related_name="customer_details", on_delete=models.CASCADE,
+                                   null=True)
+    Exam_id = models.ForeignKey(Main_Exam_Master, related_name="customer_answers_exam_id", on_delete=models.CASCADE,null=True)
+    Question_id = models.ForeignKey(Main_Question_Bank, related_name="customer_answers_Question_Bank_id", on_delete=models.CASCADE,null=True)
+    answer = models.CharField(max_length=50, null=True)
+    Mark = models.IntegerField(null=True)
 
 
 
