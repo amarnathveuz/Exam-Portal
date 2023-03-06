@@ -20,6 +20,9 @@
            <div class="row">
             <div class="col-md-6">
                 <input type="text" required class="form-control modal_question{{value1}}" placeholder="question" name="question_name{{data_id}}">
+
+                <a href="#" class="" data-toggle="modal" data-target="#language_modal-{{value1}}" data-whatever="@mdo" style="    color: #ff1717;
+                padding: 7px 6px;"><i class="fa fa-exchange" aria-hidden="true"></i></a>
             </div>
             
             <div class="col-md-2 input-group uploadFile1">
@@ -174,7 +177,54 @@
               border: none;display: none;" data-dismiss="modal">Save </button>
       </div>
     </div>
+
+    
   </div>
+
+
+ 
+
+
+<div class="modal fade" id="language_modal-{{value1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Language</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label ">English:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group langAR" style="display: none;">
+            <label for="recipient-name" class="col-form-label ">Arabic:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group langHindi" style="display: none;">
+            <label for="recipient-name" class="col-form-label">Hindi:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group langUrdu" style="display: none;">
+            <label for="recipient-name" class="col-form-label">Urdu:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group langTamil" style="display: none;">
+            <label for="recipient-name" class="col-form-label">Tamil:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
   
   <script>
   
@@ -327,5 +377,14 @@ var add_line_count = $(".add_line_count"+val1).val();
     })
 
 
+  </script>
+
+  <script>
+              var checks = $('.lang_class:checked').map(function() {
+           
+   var data =  $(this).val()
+
+   $(".lang"+data).show()
+  }).get()
   </script>
   

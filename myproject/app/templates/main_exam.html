@@ -50,6 +50,20 @@
                        </select>
                     </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Language   <span style="color: red;
+                      font-weight: bold;">(Default English)</span></label>
+                      <br>
+
+                      <input type="checkbox" value="AR" class="lang_class"> <span style="font-size: 12px;" >Arabic</span>   &nbsp; &nbsp;
+                      <input type="checkbox" value="Hindi" class="lang_class"> <span style="font-size: 12px;" >Hindi </span>   &nbsp; &nbsp;
+                      <input type="checkbox" value="Urdu" class="lang_class"> <span style="font-size: 12px;" > Urdu </span> &nbsp; &nbsp;
+                      <input type="checkbox" value="Tamil" class="lang_class"> <span style="font-size: 12px;" > Tamil </span>
+                     
+                   
+                  </div>
+            </div>
 
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
@@ -467,6 +481,8 @@ font-weight: 600;">Scoring</p>
         
          
           $("#section_id"+data_id).val(total);
+
+
         }
      })
     }
@@ -496,10 +512,13 @@ font-weight: 600;">Scoring</p>
         },
         success: function( data ) 
         {
+
+        
           var modal_name = i+"-"+i
            
           $(".direct_question_modal").append(data)
           $('.bd-example-modal-lg-'+modal_name).modal('show');
+          
         }
      })
 
@@ -580,6 +599,16 @@ font-size: 0.8125rem;">`
   }
 </script>
 
+
+<script>
+  function lang_data(){
+    var checks = $('.lang_class:checked').map(function() {
+    return $(this).val();
+  }).get()
+ 
+  console.log(checks);
+  }
+</script>
 
 
 {% endblock %}

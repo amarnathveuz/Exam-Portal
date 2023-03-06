@@ -61,6 +61,10 @@ urlpatterns = [
     path('exam_result',views.exam_result,name='exam_result'),
     path('customer_using_link',views.customer_using_link,name='customer_using_link'),
 
+
+
+    path('test_lan',views.test_lan,name='test_lan'),
+
     
     
     

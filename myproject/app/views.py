@@ -562,6 +562,8 @@ def open_section_based_question(request):
     return render(request,'open_section_based_question.html',{'value1':value1,'modal_id':modal_id,'data_id':data_id,'status':status})
 
 
+def test_lan(request):
+    return render(request,'test_lan.html')
 
 
 

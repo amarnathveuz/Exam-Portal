@@ -147,7 +147,7 @@ question_type_choices =(
 
 
 class Main_Question_Bank(common_table):
-    Question = models.CharField(max_length=50,null=True)
+    Question = models.TextField()
     Imagefield = models.FileField(upload_to='Question_Bank_image',null=True)
     Question_type = models.CharField(max_length=20,choices=question_type_choices,null=True)
     Description =  models.TextField(null=True)
@@ -155,6 +155,12 @@ class Main_Question_Bank(common_table):
     comments = models.CharField(max_length=25,null=True)
     total_mark = models.IntegerField(null=True)
     answer_id =  models.ManyToManyField('Question_Bank_multiple_choice', blank=True,related_name="Answer_master_id")
+    question_ar = models.TextField(null=True)
+    question_en = models.TextField(null=True)
+    question_hi  = models.TextField(null=True) 
+    question_ur  = models.TextField(null=True) 
+    question_ta  = models.TextField(null=True)   
+    
 
 
 class Main_Exam_section(common_table):
@@ -163,6 +169,21 @@ class Main_Exam_section(common_table):
     section_type = models.CharField(max_length=20,choices=section_choices,null=True)
     Question_bank_id = models.ForeignKey(Main_Question_Bank,related_name='Main_Exam_Master_question_id',on_delete=models.CASCADE,null=True)
 
+
+
+language_type =(
+    ("en","English"),
+    ("ar","Arabic "),
+    ("ur","Urdu"),
+    ("ta","Tamil"),
+    ("hi","Hindi")
+)
+
+class Main_exam_language(common_table):
+    Exam_id = models.ForeignKey(Main_Exam_Master,related_name ="Main_exam_language_eaxm_id",on_delete=models.CASCADE,null=True)
+    language_access = models.CharField(choices=language_type,max_length=25)
+    
+
 class Question_Bank_multiple_choice(common_table):
     Question_id = models.ForeignKey(Main_Question_Bank,related_name ="Exam_section_exam_id",on_delete=models.CASCADE,null=True)
     choice = models.CharField(max_length=50,null=True)
@@ -170,6 +191,11 @@ class Question_Bank_multiple_choice(common_table):
     file_type = models.CharField(max_length=20,null=True)
     Mark = models.IntegerField(null=True)
     result_status = models.BooleanField(default=False)
+    choice_ar = models.TextField(null=True)
+    choice_en = models.TextField(null=True)
+    choice_hi  = models.TextField(null=True) 
+    choice_ur  = models.TextField(null=True) 
+    choice_ta  = models.TextField(null=True)   
 
 class Section_Question_Mapping(common_table):
     Section_id = models.ForeignKey(Main_Exam_section,related_name ="Section_Question_Mapping_id",on_delete=models.CASCADE,null=True)
