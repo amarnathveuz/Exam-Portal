@@ -255,7 +255,8 @@ class exam_attend_user_score(models.Model):
     Mark = models.IntegerField(null=True)
     result_status = models.BooleanField(default=False)
     Question_id = models.ForeignKey(Main_Question_Bank, related_name="exam_attend_user_score_Question_Bank_id", on_delete=models.CASCADE,null=True)
-    correct_answer = models.ManyToManyField(Question_Bank_multiple_choice,related_name="exam_attend_user_score_Question_Bank_id")  
+    correct_answer = models.ManyToManyField(Question_Bank_multiple_choice,related_name="exam_attend_user_score_Question_Bank_id")
+    user_select_choice =   models.ManyToManyField(Question_Bank_multiple_choice,related_name="exam_attend_user_score_Question_Bank_id_select_id")
 
 
 
